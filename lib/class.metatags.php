@@ -177,7 +177,7 @@ class user_tqseo_metatags {
 
 			// robots
 			$crawlerOrder = array();
-			if( !empty($tsSetupSeo['robotsIndex']) ) {
+			if( !empty($tsSetupSeo['robotsIndex']) && empty($tsfePage['tx_tqseo_is_exclude']) ) {
 				$crawlerOrder['index'] = 'index';
 			} else {
 				$crawlerOrder['index'] = 'noindex';
