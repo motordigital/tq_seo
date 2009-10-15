@@ -226,7 +226,7 @@ class user_tqseo_metatags {
 
 			// Google Verification
 			if( !empty($tsSetupSeo['googleVerification']) ) {
-				$ret[] = '<meta name="verify-v1" content="'.htmlspecialchars($tsSetupSeo['googleVerification']).'" />';
+				$ret[] = '<meta name="google-site-verification" content="'.htmlspecialchars($tsSetupSeo['googleVerification']).'" />';
 			}
 
 			// MSN Verification
