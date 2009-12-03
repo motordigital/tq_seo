@@ -45,10 +45,15 @@ class user_tqseo_pagetitle {
 		$ret				= $title;
 		$rawTitel			= $TSFE->page['title'];
 		$tsSetup			= $TSFE->tmpl->setup;
+		$tsSeoSetup			= array();
 		$rootLine			= $TSFE->rootLine;
 		$currentPid			= $TSFE->id;
 		$skipPrefixSuffix	= false;
 		$applySitetitle		= false;
+
+		if( !empty($tsSetup['plugin.']['tq_seo.']) ) {
+			$tsSeoSetup = $tsSetup['plugin.']['tq_seo.'];
+		}
 
 		#######################################################################
 		# RAW PAGE TITEL
@@ -57,7 +62,7 @@ class user_tqseo_pagetitle {
 			$ret = $TSFE->page['tx_tqseo_pagetitle'];
 
 			// Add template prefix/suffix
-			if(!empty($tsSetup['plugin.']['tq_seo.']['pageTitle.']['applySitetitleToPagetitle'])) {
+			if(!empty($tsSeoSetup['pageTitle.']['applySitetitleToPagetitle'])) {
 				$applySitetitle = true;
 			}
 
@@ -126,9 +131,12 @@ class user_tqseo_pagetitle {
 					$ret .= ' '.$pageTitelSuffix;
 				}
 
-				if(!empty($tsSetup['plugin.']['tq_seo.']['pageTitle.']['applySitetitleToPrefixSuffix'])) {
+				if(!empty($tsSeoSetup['pageTitle.']['applySitetitleToPrefixSuffix'])) {
 					$applySitetitle = true;
 				}
+			} else {
+				$ret = $rawTitel;
+				$applySitetitle = true;
 			}
 		}
 
@@ -136,13 +144,37 @@ class user_tqseo_pagetitle {
 		# APPLY SITETITLE (from setup)
 		#######################################################################
 		if($applySitetitle) {
+			$pageTitleGlue = ':';
+			$glueSpacerBefore = '';
+			$glueSpacerAfter = '';
+
+			if( isset($tsSeoSetup['pageTitle.']['sitetitleGlue']) ) {
+				$pageTitleGlue = $tsSeoSetup['pageTitle.']['sitetitleGlue'];
+			}
+
+			if( !empty($tsSeoSetup['pageTitle.']['sitetitleGlueSpaceBefore']) ) {
+				$glueSpacerBefore = ' ';
+			}
+
+			if( !empty($tsSeoSetup['pageTitle.']['sitetitleGlueSpaceAfter']) ) {
+				$glueSpacerAfter = ' ';
+			}
+
+			$sitetitlePosition = 1;
+
+			if( isset($tsSeoSetup['pageTitle.']['sitetitlePosition']) ) {
+				$sitetitlePosition = (int)$tsSeoSetup['pageTitle.']['sitetitlePosition'];
+			} elseif(isset($tsSetup['config.']['pageTitleFirst'])) {
+				$sitetitlePosition = (int)$tsSetup['config.']['pageTitleFirst'];
+			}
+
 			// add overall pagetitel from template/ts-setup
-			if(!empty($tsSetup['config.']['pageTitleFirst'])) {
+			if($sitetitlePosition) {
 				// suffix
-				$ret .= ': '.$tsSetup['sitetitle'];
+				$ret .= $glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$tsSetup['sitetitle'];
 			} else {
 				// prefix (default)
-				$ret = $tsSetup['sitetitle'].': '.$ret;
+				$ret = $tsSetup['sitetitle'].$glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$ret;
 			}
 		}
 

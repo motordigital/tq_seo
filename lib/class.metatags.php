@@ -249,15 +249,18 @@ class user_tqseo_metatags {
 			# OTHERS (generated tags)
 			#####################################
 
-			// Canonical
-			if(!empty($tsSetupSeo['useCanonical']) && empty($TSFE->cHash)) {
-				$linkConf = array(
-					'parameter'	=> $TSFE->id,
-				);
+			// Canonical URL
+			$canonicalUrl = array();
 
-				$pageUrl = t3lib_div::locationHeaderUrl( $TSFE->cObj->typoLink_URL($linkConf) );
+			if( !empty($tsfePage['tx_tqseo_canonicalurl']) ) {
+				$canonicalUrl['parameter'] = $tsfePage['tx_tqseo_canonicalurl'];
+			} elseif(!empty($tsSetupSeo['useCanonical']) && empty($TSFE->cHash)) {
+				$canonicalUrl['parameter'] = $TSFE->id;
+			}
 
-				$ret[] = '<link rel="canonical" href="'.htmlspecialchars($pageUrl).'" />';
+			if( !empty($canonicalUrl) ) {
+				$canonicalUrl = t3lib_div::locationHeaderUrl( $TSFE->cObj->typoLink_URL($canonicalUrl) );
+				$ret[] = '<link rel="canonical" href="'.htmlspecialchars($canonicalUrl).'" />';
 			}
 		}
 

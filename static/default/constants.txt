@@ -82,9 +82,21 @@ plugin.tq_seo {
 
 
     # cat=plugin.tq_seo.pageTitle/enable/01; type=boolean; label= Apply Tmpl-Sitetitle to absolute <title>: This enables the addition of the template-sitetitle to the rendered page-title (in absolute <title>-mode)
-  pageTitle.applySitetitleToPagetitle = 1
+  pageTitle.applySitetitleToPagetitle = 0
 
     # cat=plugin.tq_seo.pageTitle/enable/02; type=boolean; label= Apply Tmpl-Sitetitle to prefix/suffix: This enables the addition of the template-sitetitle to the rendered page-title (in pagetitle-prefix/suffix-mode)
   pageTitle.applySitetitleToPrefixSuffix = 1
+
+    # cat=plugin.tq_seo.pageTitle/enable/03; type=string; label= Sitetitle glue: String between titel and sitetitle (from template)
+  pageTitle.sitetitleGlue = :
+
+    # cat=plugin.tq_seo.pageTitle/enable/04; type=boolean; label= Sitetitle glue spacer (before): Add spacer between title and glue (from template)
+  pageTitle.sitetitleGlueSpaceBefore = 0
+
+    # cat=plugin.tq_seo.pageTitle/enable/04; type=boolean; label= Sitetitle glue spacer (after): Add spacer between glue and sitetitle (from template)
+  pageTitle.sitetitleGlueSpaceAfter = 1
+
+    # cat=plugin.tq_seo.pageTitle/enable/05; type=options[Sitetitle-Pagetitle=0, Pagetitle-Sitetitle=1]; label= Sitetitle position: Position of template-sitetitle in title
+  pageTitle.sitetitlePosition = 0
 
 }

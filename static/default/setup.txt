@@ -37,6 +37,10 @@ plugin.tq_seo {
   pageTitle {
     applySitetitleToPagetitle = {$plugin.tq_seo.pageTitle.applySitetitleToPagetitle}
     applySitetitleToPrefixSuffix = {$plugin.tq_seo.pageTitle.applySitetitleToPrefixSuffix}
+    sitetitleGlue = {$plugin.tq_seo.pageTitle.sitetitleGlue}
+    sitetitleGlueSpaceBefore = {$plugin.tq_seo.pageTitle.sitetitleGlueSpaceBefore}
+    sitetitleGlueSpaceAfter = {$plugin.tq_seo.pageTitle.sitetitleGlueSpaceAfter}
+    sitetitlePosition = {$plugin.tq_seo.pageTitle.sitetitlePosition}
   }
 
   metaTags {

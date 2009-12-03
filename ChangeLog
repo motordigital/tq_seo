@@ -1,3 +1,9 @@
+2009-12-03 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+	* Added sitetitle Glue options (see constants)
+	* Added sitetitle position (see constants)
+	* Changed default-value of plugin.tq_seo.pageTitle.applySitetitleToPagetitle (1 => 0)
+	* Added canonical url to page and pageTranslation
+
 2009-10-15 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
 	* Added new google site verification tag
 
