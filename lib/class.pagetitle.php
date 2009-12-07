@@ -160,8 +160,7 @@ class user_tqseo_pagetitle {
 				$glueSpacerAfter = ' ';
 			}
 
-			$sitetitlePosition = 1;
-
+			$sitetitlePosition = 0;
 			if( isset($tsSeoSetup['pageTitle.']['sitetitlePosition']) ) {
 				$sitetitlePosition = (int)$tsSeoSetup['pageTitle.']['sitetitlePosition'];
 			} elseif(isset($tsSetup['config.']['pageTitleFirst'])) {
