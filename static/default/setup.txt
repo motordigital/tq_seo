@@ -57,6 +57,8 @@ plugin.tq_seo {
     robotsIndex = {$plugin.tq_seo.metaTags.robotsIndex}
     robotsFollow = {$plugin.tq_seo.metaTags.robotsFollow}
     robotsArchive = {$plugin.tq_seo.metaTags.robotsArchive}
+    robotsSnippet = {$plugin.tq_seo.metaTags.robotsSnippet}
+    robotsOdp = {$plugin.tq_seo.metaTags.robotsOdp}
 
     geoPositionLatitude = {$plugin.tq_seo.metaTags.geoPositionLatitude}
     geoPositionLongitude = {$plugin.tq_seo.metaTags.geoPositionLongitude}
@@ -72,6 +74,9 @@ plugin.tq_seo {
     useLastUpdate = {$plugin.tq_seo.metaTags.useLastUpdate}
     useDetectLanguage = {$plugin.tq_seo.metaTags.useDetectLanguage}
     useCanonical = {$plugin.tq_seo.metaTags.useCanonical}
+    useExpire = {$plugin.tq_seo.metaTags.useExpire}
+
+    ieCompatibilityMode = {$plugin.tq_seo.userAgent.ieCompatibilityMode}
 
     conf {
       description_page.field = description

@@ -171,6 +171,11 @@ class user_tqseo_metatags {
 				$ret[] = '<meta name="DC.date" content="'.htmlspecialchars($tsSetupSeo['lastUpdate']).'" />';
 			}
 
+			// expire
+			if( !empty($tsSetupSeo['useLastUpdate']) && !empty($tsfePage['endtime']) ) {
+				$ret[] = '<meta name="googlebot" content="unavailable_after: '.date('d-M-Y H:i:s T', $tsfePage['endtime']).'"> ';
+			}
+
 			#####################################
 			# CRAWLER ORDERS
 			#####################################
@@ -191,6 +196,14 @@ class user_tqseo_metatags {
 
 			if( empty($tsSetupSeo['robotsArchive']) ) {
 				$crawlerOrder['archive'] = 'noarchive';
+			}
+
+			if( empty($tsSetupSeo['robotsSnippet']) ) {
+				$crawlerOrder['snippet'] = 'nosnippet';
+			}
+
+			if( empty($tsSetupSeo['robotsOdp']) ) {
+				$crawlerOrder['odp'] = 'noodp';
 			}
 
 			$ret[] = '<meta name="robots" content="'.implode(',',$crawlerOrder).'" />';
@@ -243,6 +256,19 @@ class user_tqseo_metatags {
 			// PICS label
 			if( !empty($tsSetupSeo['picsLabel']) ) {
 				$ret[] = '<meta http-equiv="PICS-Label" content="'.htmlspecialchars($tsSetupSeo['picsLabel']).'" />';
+			}
+
+			#####################################
+			# UserAgent
+			#####################################
+
+			// IE compatibility mode
+			if( !empty($tsSetupSeo['ieCompatibilityMode']) ) {
+				if( is_numeric($tsSetupSeo['ieCompatibilityMode']) ) {
+					$ret[] = '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE'.(int)$tsSetupSeo['ieCompatibilityMode'].'" />';
+				} else {
+					$ret[] = '<meta http-equiv="X-UA-Compatible" content="'.htmlspecialchars($tsSetupSeo['ieCompatibilityMode']).'" />';
+				}
 			}
 
 			#####################################

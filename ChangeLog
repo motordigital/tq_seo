@@ -1,3 +1,8 @@
+2009-12-16 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+	* Added IE-Compatibility-Mode
+	* Added ODP/Snipped control in crawler
+	* Added Google expire date
+
 2009-12-03 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
 	* Added sitetitle Glue options (see constants)
 	* Added sitetitle position (see constants)

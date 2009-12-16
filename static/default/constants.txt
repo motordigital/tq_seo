@@ -57,6 +57,8 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.metaTags/enable/22; type=boolean; label= Canonical Tag: Autogenerate Canonical-Metatag if possible.
   metaTags.useCanonical = 1
 
+    # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
+  metaTags.useExpire = 1
 
 
     # cat=plugin.tq_seo.crawler/page/01; type=boolean; label= Crawler Index: Should the crawler (eg. Google) index the page and subpages
@@ -65,16 +67,23 @@ plugin.tq_seo {
   metaTags.robotsFollow = 1
     # cat=plugin.tq_seo.crawler/page/03; type=boolean; label= Crawler Archive: Should the crawler (eg. Google) put the content of the page into the archive (eg. Google Cache)
   metaTags.robotsArchive = 1
+    # cat=plugin.tq_seo.crawler/page/04; type=boolean; label= Crawler Snippet: Should the crawler (eg. Google) show the snippet in the search result
+  metaTags.robotsSnippet = 1
+    # cat=plugin.tq_seo.crawler/page/05; type=boolean; label= Crawler ODP: Should the crawler (eg. Google) use the description from the OpenDirectoryProject
+  metaTags.robotsOdp = 1
 
-    # cat=plugin.tq_seo.crawler/page/04; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
+    # cat=plugin.tq_seo.crawler/page/06; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
   metaTags.googleVerification =
 
-    # cat=plugin.tq_seo.crawler/page/05; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
+    # cat=plugin.tq_seo.crawler/page/07; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
   metaTags.msnVerification =
 
-    # cat=plugin.tq_seo.crawler/page/06; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
+    # cat=plugin.tq_seo.crawler/page/08; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
   metaTags.yahooVerification =
 
+
+    # cat=plugin.tq_seo.userAgent/ie/1; type=options[,Highest Version=edge,8.x=8,7.x=7,6.x=6,5.x=5]; label= IE Compatibility Mode: Compatibility mode for Microsoft Internet Explorer.
+  userAgent.ieCompatibilityMode =
 
 
     # cat=plugin.tq_seo.services/page/04; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
