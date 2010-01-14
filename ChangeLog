@@ -1,19 +1,23 @@
-2009-12-16 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+2010-01-14 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed dokumentation issues
+	* Changed email address
+
+2009-12-16 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added IE-Compatibility-Mode
 	* Added ODP/Snipped control in crawler
 	* Added Google expire date
 
-2009-12-03 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+2009-12-03 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added sitetitle Glue options (see constants)
 	* Added sitetitle position (see constants)
 	* Changed default-value of plugin.tq_seo.pageTitle.applySitetitleToPagetitle (1 => 0)
 	* Added canonical url to page and pageTranslation
 
-2009-10-15 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+2009-10-15 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added new google site verification tag
 
-2009-07-23 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+2009-07-23 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Cleanup und bugfixes
 
-2009-04-08 Markus Blaschke, TEQneers GmbH & Co. KG  <info@teqneers.de>
+2009-04-08 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Initial revision
