@@ -71,14 +71,16 @@ plugin.tq_seo {
   metaTags.robotsSnippet = 1
     # cat=plugin.tq_seo.crawler/page/05; type=boolean; label= Crawler ODP: Should the crawler (eg. Google) use the description from the OpenDirectoryProject
   metaTags.robotsOdp = 1
+    # cat=plugin.tq_seo.crawler/page/06; type=boolean; label= Crawler YDir: Should the crawler (eg. Google) use the description from the Yahoo Directory
+  metaTags.robotsYdir = 1
 
-    # cat=plugin.tq_seo.crawler/page/06; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
+    # cat=plugin.tq_seo.crawler/page/07; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
   metaTags.googleVerification =
 
-    # cat=plugin.tq_seo.crawler/page/07; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
+    # cat=plugin.tq_seo.crawler/page/08; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
   metaTags.msnVerification =
 
-    # cat=plugin.tq_seo.crawler/page/08; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
+    # cat=plugin.tq_seo.crawler/page/09; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
   metaTags.yahooVerification =
 
 

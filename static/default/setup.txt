@@ -59,6 +59,7 @@ plugin.tq_seo {
     robotsArchive = {$plugin.tq_seo.metaTags.robotsArchive}
     robotsSnippet = {$plugin.tq_seo.metaTags.robotsSnippet}
     robotsOdp = {$plugin.tq_seo.metaTags.robotsOdp}
+    robotsYdir = {$plugin.tq_seo.metaTags.robotsYdir}
 
     geoPositionLatitude = {$plugin.tq_seo.metaTags.geoPositionLatitude}
     geoPositionLongitude = {$plugin.tq_seo.metaTags.geoPositionLongitude}

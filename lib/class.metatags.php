@@ -206,6 +206,10 @@ class user_tqseo_metatags {
 				$crawlerOrder['odp'] = 'noodp';
 			}
 
+			if( empty($tsSetupSeo['robotsYdir']) ) {
+				$crawlerOrder['ydir'] = 'noydir';
+			}
+
 			$ret[] = '<meta name="robots" content="'.implode(',',$crawlerOrder).'" />';
 
 			// revisit
