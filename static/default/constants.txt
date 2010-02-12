@@ -60,6 +60,16 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
   metaTags.useExpire = 1
 
+    # cat=plugin.tq_seo.metaTags/page/24; type=string; label= P3P Compact Policy: W3C P3P Compact Policy String.
+  metaTags.p3pCP =
+
+    # cat=plugin.tq_seo.metaTags/page/26; type=string; label= P3P Policy Url: URL to your W3C P3P Policy file.
+  metaTags.p3pPolicyUrl =
+
+    # cat=plugin.tq_seo.metaTags/enable/27; type=boolean; label= Link generation: Automatic generate index, up, prev und next links (metatags).
+  metaTags.linkGeneration = 1
+
+
 
     # cat=plugin.tq_seo.crawler/page/01; type=boolean; label= Crawler Index: Should the crawler (eg. Google) index the page and subpages
   metaTags.robotsIndex = 1

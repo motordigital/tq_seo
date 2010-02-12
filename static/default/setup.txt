@@ -9,6 +9,7 @@
 includeLibs.tx_tqseo_pagetitle = EXT:tq_seo/lib/class.pagetitle.php
 includeLibs.tx_tqseo_metatags = EXT:tq_seo/lib/class.metatags.php
 includeLibs.tx_tqseo_pagefooter = EXT:tq_seo/lib/class.pagefooter.php
+includeLibs.tx_tqseo_http = EXT:tq_seo/lib/class.http.php
 
 ## title tag changer
 config.titleTagFunction = user_tqseo_pagetitle->main
@@ -18,6 +19,11 @@ page {
   headerData.84113002 = USER
   headerData.84113002 {
     userFunc = user_tqseo_metatags->main
+  }
+
+  headerData.84113003 = USER_INT
+  headerData.84113003 {
+    userFunc = user_tqseo_http->main
   }
 
   84113002 = USER
@@ -31,7 +37,6 @@ page {
 #lib.parseFunc.tags.link.typolink.userFunc = user_tqseo_linkparser->main
 #lib.parseFunc_RTE.tags.link.typolink.userFunc = user_tqseo_linkparser->main
 #plugin.tx_indexedsearch.result_link_target.stdWrap.typolink.userFunc = user_tqseo_linkparser->main
-
 
 plugin.tq_seo {
   pageTitle {
@@ -53,6 +58,11 @@ plugin.tq_seo {
     distribution = {$plugin.tq_seo.metaTags.distribution}
     rating = {$plugin.tq_seo.metaTags.rating}
     revisit = {$plugin.tq_seo.metaTags.revisit}
+
+    p3pCP = {$plugin.tq_seo.metaTags.p3pCP}
+    p3pPolicyUrl = {$plugin.tq_seo.metaTags.p3pPolicyUrl}
+
+    linkGeneration = {$plugin.tq_seo.metaTags.linkGeneration}
 
     robotsIndex = {$plugin.tq_seo.metaTags.robotsIndex}
     robotsFollow = {$plugin.tq_seo.metaTags.robotsFollow}

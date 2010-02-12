@@ -53,7 +53,6 @@ class user_tqseo_metatags {
 			#####################################
 			# FETCH METADATA FROM PAGE
 			#####################################
-
 			// description
 			$tmp = $cObj->stdWrap( $tsSetupSeo['conf.']['description_page'], $tsSetupSeo['conf.']['description_page.'] );
 			if( !empty($tmp) ) {
@@ -276,28 +275,89 @@ class user_tqseo_metatags {
 			}
 
 			#####################################
-			# OTHERS (generated tags)
+			# Link-Tags
 			#####################################
+			if( !empty($tsSetupSeo['linkGeneration']) ) {
+				$rootLine = $TSFE->rootLine;
+				ksort($rootLine);
+
+				$rootPage		= reset( $rootLine );
+				$currentPage	= end( $rootLine );
+				$upPage			= prev( $rootLine );
+
+				// Home/Start
+				$ret[] = '<link rel="start" href="'.htmlspecialchars( $this->_generateLink($rootPage['uid']) ).'">';
+
+				// Up
+				$ret[] = '<link rel="up" href="'.htmlspecialchars( $this->_generateLink($currentPage['pid']) ).'">';
+
+				// TODO
+				//$ret[] = '<link rel="next" href="'.htmlspecialchars( $this->_generateLink($nextPage['pid']) ).'">';
+				//$ret[] = '<link rel="prev" href="'.htmlspecialchars( $this->_generateLink($prevPage['pid']) ).'">';
+			}
 
 			// Canonical URL
-			$canonicalUrl = array();
+			$canonicalUrl = null;
 
 			if( !empty($tsfePage['tx_tqseo_canonicalurl']) ) {
-				$canonicalUrl['parameter'] = $tsfePage['tx_tqseo_canonicalurl'];
+				$canonicalUrl = $tsfePage['tx_tqseo_canonicalurl'];
 			} elseif(!empty($tsSetupSeo['useCanonical']) && empty($TSFE->cHash)) {
-				$canonicalUrl['parameter'] = $TSFE->id;
+				$canonicalUrl = $this->_detectCanonicalPage();
 			}
 
 			if( !empty($canonicalUrl) ) {
-				$canonicalUrl = t3lib_div::locationHeaderUrl( $TSFE->cObj->typoLink_URL($canonicalUrl) );
+				$canonicalUrl = t3lib_div::locationHeaderUrl( $this->_generateLink($canonicalUrl) );
 				$ret[] = '<link rel="canonical" href="'.htmlspecialchars($canonicalUrl).'" />';
 			}
+
+			#####################################
+			# OTHERS (generated tags)
+			#####################################
+			// TODO
 		}
 
 		$seperator = "\n	";
 
 		return $seperator.'<!-- MetaTags :: begin -->'.$seperator.implode($seperator, $ret).$seperator.'<!-- MetaTags :: end -->'.$seperator;
 	}
+
+	/**
+	 * Generate a link via TYPO3-Api
+	 *
+	 * @return	string			URL
+	 */
+	protected function _generateLink($url, $conf = null) {
+		global $TSFE;
+
+		if( $conf === null ) {
+			$conf = array();
+		}
+
+		$conf['parameter'] = $url;
+
+		return $TSFE->cObj->typoLink_URL($conf);
+	}
+
+	/**
+	 * Detect canonical page
+	 *
+	 * @return	string			Page Id or url
+	 */
+	protected function _detectCanonicalPage() {
+		global $TSFE;
+
+		// Init with current page
+		$ret = $TSFE->id;
+
+		###############################
+		# Content from pid
+		###############################
+		if( !empty($this->cObj->data['content_from_pid']) ) {
+			return $this->cObj->data['content_from_pid'];
+		}
+
+		return $ret;
+   }
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.metatags.php']) {

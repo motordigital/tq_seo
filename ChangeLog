@@ -1,3 +1,10 @@
+2010-02-12 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added P3P-Support (Beta)
+	* Added automatic canonical-url detection (inside TYPO3)
+
+2010-01-22 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added YahooDirectory-Crawler Order (Thanks to Daniel Huf)
+
 2010-01-14 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Fixed dokumentation issues
 	* Changed email address
