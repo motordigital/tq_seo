@@ -255,6 +255,11 @@ class user_tqseo_metatags {
 				$ret[] = '<meta name="y_key" content="'.htmlspecialchars($tsSetupSeo['yahooVerification']).'" />';
 			}
 
+			// WebOfTrust Verification
+			if( !empty($tsSetupSeo['wotVerification']) ) {
+				$ret[] = '<meta name="wot-verification" content="'.htmlspecialchars($tsSetupSeo['wotVerification']).'" />';
+			}
+
 
 			// PICS label
 			if( !empty($tsSetupSeo['picsLabel']) ) {
@@ -284,6 +289,8 @@ class user_tqseo_metatags {
 				$rootPage		= reset( $rootLine );
 				$currentPage	= end( $rootLine );
 				$upPage			= prev( $rootLine );
+				$prevPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['prev.'] );
+				$nextPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['next.'] );
 
 				// Home/Start
 				$ret[] = '<link rel="start" href="'.htmlspecialchars( $this->_generateLink($rootPage['uid']) ).'">';
@@ -291,9 +298,15 @@ class user_tqseo_metatags {
 				// Up
 				$ret[] = '<link rel="up" href="'.htmlspecialchars( $this->_generateLink($currentPage['pid']) ).'">';
 
-				// TODO
-				//$ret[] = '<link rel="next" href="'.htmlspecialchars( $this->_generateLink($nextPage['pid']) ).'">';
-				//$ret[] = '<link rel="prev" href="'.htmlspecialchars( $this->_generateLink($prevPage['pid']) ).'">';
+				// Next
+				if( !empty($nextPage ) ) {
+					$ret[] = '<link rel="next" href="'.htmlspecialchars( $this->_generateLink($nextPage) ).'">';
+				}
+
+				// Prev
+				if( !empty($prevPage) ) {
+					$ret[] = '<link rel="prev" href="'.htmlspecialchars( $this->_generateLink($prevPage) ).'">';
+				}
 			}
 
 			// Canonical URL
@@ -316,9 +329,9 @@ class user_tqseo_metatags {
 			// TODO
 		}
 
-		$seperator = "\n	";
+		$separator = "\n	";
 
-		return $seperator.'<!-- MetaTags :: begin -->'.$seperator.implode($seperator, $ret).$seperator.'<!-- MetaTags :: end -->'.$seperator;
+		return $separator.'<!-- MetaTags :: begin -->'.$separator.implode($separator, $ret).$separator.'<!-- MetaTags :: end -->'.$separator;
 	}
 
 	/**

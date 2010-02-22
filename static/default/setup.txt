@@ -79,6 +79,7 @@ plugin.tq_seo {
     googleVerification = {$plugin.tq_seo.metaTags.googleVerification}
     msnVerification = {$plugin.tq_seo.metaTags.msnVerification}
     yahooVerification = {$plugin.tq_seo.metaTags.yahooVerification}
+    wotVerification = {$plugin.tq_seo.metaTags.wotVerification}
 
     picsLabel = {$plugin.tq_seo.metaTags.picsLabel}
 
@@ -102,6 +103,42 @@ plugin.tq_seo {
         data = register : SYS_LASTCHANGED
       }
     }
+
+    sectionLinks {
+      prev = HMENU
+      prev {
+        special = browse
+        special {
+          items = prev
+          prev.fields.title =
+        }
+
+        1 = TMENU
+        1.NO {
+          wrapItemAndSub = {field:uid}
+          wrapItemAndSub.insertData = 1
+          doNotLinkIt = 1
+        }
+      }
+
+      next = HMENU
+      next {
+        special = browse
+        special {
+          items = next
+          next.fields.title =
+        }
+
+        1 = TMENU
+        1.NO {
+          wrapItemAndSub = {field:uid}
+          wrapItemAndSub.insertData = 1
+          doNotLinkIt = 1
+        }
+      }
+	}
+
+
   }
 
   services {

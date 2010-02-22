@@ -1,3 +1,8 @@
+2010-02-22 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added WebOfTrust (WOT) Verification support
+	* Moved Verification-Constants from Crawler to Services
+	* Added Previous/Next Metatag-Links
+
 2010-02-12 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added P3P-Support (Beta)
 	* Added automatic canonical-url detection (inside TYPO3)

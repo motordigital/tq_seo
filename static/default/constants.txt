@@ -84,22 +84,28 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.crawler/page/06; type=boolean; label= Crawler YDir: Should the crawler (eg. Google) use the description from the Yahoo Directory
   metaTags.robotsYdir = 1
 
-    # cat=plugin.tq_seo.crawler/page/07; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
-  metaTags.googleVerification =
-
-    # cat=plugin.tq_seo.crawler/page/08; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
-  metaTags.msnVerification =
-
-    # cat=plugin.tq_seo.crawler/page/09; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
-  metaTags.yahooVerification =
-
 
     # cat=plugin.tq_seo.userAgent/ie/1; type=options[,Highest Version=edge,8.x=8,7.x=7,6.x=6,5.x=5]; label= IE Compatibility Mode: Compatibility mode for Microsoft Internet Explorer.
   userAgent.ieCompatibilityMode =
 
 
-    # cat=plugin.tq_seo.services/page/04; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
+    # cat=plugin.tq_seo.services/page/01; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
+  metaTags.googleVerification =
+
+    # cat=plugin.tq_seo.services/page/02; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
+  metaTags.msnVerification =
+
+    # cat=plugin.tq_seo.services/page/03; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
+  metaTags.yahooVerification =
+
+    # cat=plugin.tq_seo.services/page/04; type=string; label= Web Of Trust Verification: Verification code for Web of trust (mywot.com)
+  metaTags.wotVerification =
+
+    # cat=plugin.tq_seo.services/page/05; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
   services.googleAnalytics =
+
+
+
 
 
     # cat=plugin.tq_seo.pageTitle/enable/01; type=boolean; label= Apply Tmpl-Sitetitle to absolute <title>: This enables the addition of the template-sitetitle to the rendered page-title (in absolute <title>-mode)
