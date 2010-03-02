@@ -1,3 +1,7 @@
+2010-02-24 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Disabled Google Analytics if BE-User is logged in (Thanks to Mario Näther)
+	    Configurable via plugin.tq_seo.services.googleAnalytics.showIfBeLogin
+
 2010-02-22 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added WebOfTrust (WOT) Verification support
 	* Moved Verification-Constants from Crawler to Services

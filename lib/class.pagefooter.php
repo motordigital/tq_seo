@@ -46,6 +46,8 @@ class user_tqseo_pagefooter {
 		$tsSetup			= $TSFE->tmpl->setup;
 		$tsServices			= array();
 
+		$beLoggedIn			= isset($GLOBALS['BE_USER']->user['username']);
+
 		if( !empty($tsSetup['plugin.']['tq_seo.']['services.']) ) {
 			$tsServices = $tsSetup['plugin.']['tq_seo.']['services.'];
 		}
@@ -53,7 +55,7 @@ class user_tqseo_pagefooter {
 		#########################################
 		# GOOGLE ANALYTICS
 		#########################################
-		if( !empty($tsServices['googleAnalytics']) ) {
+		if( !empty($tsServices['googleAnalytics']) && !(empty($tsServices['googleAnalytics.']['showIfBeLogin']) && $beLoggedIn) ) {
 			$ret[] = '<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :"http://www.");
 document.write(unescape("%3Cscript src=\'" + gaJsHost +"google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
@@ -64,7 +66,6 @@ var pageTracker = _gat._getTracker("'.htmlspecialchars($tsServices['googleAnalyt
 pageTracker._trackPageview();
 } catch(err) {}</script>';
 		}
-
 
 		return implode("\n", $ret);
 	}

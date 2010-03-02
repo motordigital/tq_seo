@@ -143,5 +143,8 @@ plugin.tq_seo {
 
   services {
     googleAnalytics = {$plugin.tq_seo.services.googleAnalytics}
+    googleAnalytics {
+		showIfBeLogin = 0
+	}
   }
 }
