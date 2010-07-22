@@ -55,8 +55,9 @@ class user_tqseo_pagefooter {
 		#########################################
 		# GOOGLE ANALYTICS
 		#########################################
-		if( !empty($tsServices['googleAnalytics']) && !(empty($tsServices['googleAnalytics.']['showIfBeLogin']) && $beLoggedIn) ) {
-			$ret[] = '<script type="text/javascript">
+		if( !empty($tsServices['googleAnalytics']) ) {
+			if( !(empty($tsServices['googleAnalytics.']['showIfBeLogin']) && $beLoggedIn) ) {
+				$ret[] = '<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :"http://www.");
 document.write(unescape("%3Cscript src=\'" + gaJsHost +"google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
 </script>
@@ -65,6 +66,9 @@ try {
 var pageTracker = _gat._getTracker("'.htmlspecialchars($tsServices['googleAnalytics']).'");
 pageTracker._trackPageview();
 } catch(err) {}</script>';
+			} else {
+				$ret[] = '<!-- Google Analytics disabled - Backend-Login detected -->';
+			}
 		}
 
 		return implode("\n", $ret);

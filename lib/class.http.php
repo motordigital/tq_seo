@@ -44,42 +44,80 @@ class user_tqseo_http {
 		$cObj		= $TSFE->cObj;
 		$pageMeta	= array();
 		$tsfePage	= $TSFE->page;
+		$headers = array();
 
 		// dont send any headers if headers are already sent
 		if( headers_sent() ) {
 			return;
 		}
 
-		if(!empty($tsSetup['plugin.']['tq_seo.']['metaTags.'])) {
-			$tsSetupSeo = $tsSetup['plugin.']['tq_seo.']['metaTags.'];
-
+		if( !empty($TSFE->tmpl->loaded) ) {
 			#####################################
-			# W3C P3P Tags
+			# Non-Cached page
 			#####################################
-			$p3pCP			= null;
-			$p3pPolicyUrl	= null;
 
-			if( !empty($tsSetupSeo['p3pCP']) ) {
-				$p3pCP = $tsSetupSeo['p3pCP'];
-			}
+			if(!empty($tsSetup['plugin.']['tq_seo.']['metaTags.'])) {
+				$tsSetupSeo = $tsSetup['plugin.']['tq_seo.']['metaTags.'];
 
-			if( !empty($tsSetupSeo['p3pPolicyUrl']) ) {
-				$p3pPolicyUrl = $tsSetupSeo['p3pPolicyUrl'];
-			}
+				#####################################
+				# W3C P3P Tags
+				#####################################
+				$p3pCP			= null;
+				$p3pPolicyUrl	= null;
 
-			if( !empty($p3pCP) || !empty($p3pPolicyUrl) ) {
-				$p3pHeaders = array();
-
-				if( !empty($p3pCP) ) {
-					$p3pHeader[] = 'CP="'.$p3pCP.'"';
+				if( !empty($tsSetupSeo['p3pCP']) ) {
+					$p3pCP = $tsSetupSeo['p3pCP'];
 				}
 
-				if( !empty($p3pPolicyUrl) ) {
-					$p3pHeader[] = 'policyref="'.$p3pPolicyUrl.'"';
+				if( !empty($tsSetupSeo['p3pPolicyUrl']) ) {
+					$p3pPolicyUrl = $tsSetupSeo['p3pPolicyUrl'];
 				}
 
-				header('P3P: '.implode(' ', $p3pHeader));
+				if( !empty($p3pCP) || !empty($p3pPolicyUrl) ) {
+					$p3pHeaders = array();
+
+					if( !empty($p3pCP) ) {
+						$p3pHeader[] = 'CP="'.$p3pCP.'"';
+					}
+
+					if( !empty($p3pPolicyUrl) ) {
+						$p3pHeader[] = 'policyref="'.$p3pPolicyUrl.'"';
+					}
+
+					$headers['P3P'] = implode(' ', $p3pHeader);
+
+					// cache informations
+					$curentTemplate = end( $TSFE->tmpl->hierarchyInfo );
+					$currentTemplatePid	= $curentTemplate['pid'];
+					tx_tqseo_cache::set($currentTemplatePid, 'http', 'p3p', $headers['P3P']);
+				}
 			}
+
+		} else {
+			#####################################
+			# Cached page
+			#####################################
+			// build root pid list
+			$rootPidList = array();
+			foreach($TSFE->rootLine as $pageRow) {
+				$rootPidList[ $pageRow['uid'] ] = $pageRow['uid'];
+			}
+
+			// fetch from cache
+			$cacheList = tx_tqseo_cache::getList('http', 'p3p');
+			foreach($rootPidList as $pageId) {
+				if( !empty($cacheList[$pageId]) ) {
+					$headers['P3P'] = $cacheList[$pageId];
+					break;
+				}
+			}
+		}
+
+		#####################################
+		# Sender headers
+		#####################################
+		if( !empty($headers['P3P']) ) {
+			header('P3P: '.$headers['P3P']);
 		}
 
 	}

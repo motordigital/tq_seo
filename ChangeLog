@@ -1,3 +1,7 @@
+2010-07-13 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed performance issue with optional HTTP-headers
+	* Added HTML-comment if Google Analytics is disabled because of logged in BE-User
+
 2010-02-24 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Disabled Google Analytics if BE-User is logged in (Thanks to Mario Näther)
 	    Configurable via plugin.tq_seo.services.googleAnalytics.showIfBeLogin

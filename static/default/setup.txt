@@ -21,11 +21,6 @@ page {
     userFunc = user_tqseo_metatags->main
   }
 
-  headerData.84113003 = USER_INT
-  headerData.84113003 {
-    userFunc = user_tqseo_http->main
-  }
-
   84113002 = USER
   84113002 {
     userFunc = user_tqseo_pagefooter->main

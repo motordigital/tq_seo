@@ -172,7 +172,7 @@ class user_tqseo_metatags {
 
 			// expire
 			if( !empty($tsSetupSeo['useLastUpdate']) && !empty($tsfePage['endtime']) ) {
-				$ret[] = '<meta name="googlebot" content="unavailable_after: '.date('d-M-Y H:i:s T', $tsfePage['endtime']).'"> ';
+				$ret[] = '<meta name="googlebot" content="unavailable_after: '.date('d-M-Y H:i:s T', $tsfePage['endtime']).'" /> ';
 			}
 
 			#####################################
@@ -293,19 +293,19 @@ class user_tqseo_metatags {
 				$nextPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['next.'] );
 
 				// Home/Start
-				$ret[] = '<link rel="start" href="'.htmlspecialchars( $this->_generateLink($rootPage['uid']) ).'">';
+				$ret[] = '<link rel="start" href="'.htmlspecialchars( $this->_generateLink($rootPage['uid']) ).'" />';
 
 				// Up
-				$ret[] = '<link rel="up" href="'.htmlspecialchars( $this->_generateLink($currentPage['pid']) ).'">';
+				$ret[] = '<link rel="up" href="'.htmlspecialchars( $this->_generateLink($currentPage['pid']) ).'" />';
 
 				// Next
 				if( !empty($nextPage ) ) {
-					$ret[] = '<link rel="next" href="'.htmlspecialchars( $this->_generateLink($nextPage) ).'">';
+					$ret[] = '<link rel="next" href="'.htmlspecialchars( $this->_generateLink($nextPage) ).'" />';
 				}
 
 				// Prev
 				if( !empty($prevPage) ) {
-					$ret[] = '<link rel="prev" href="'.htmlspecialchars( $this->_generateLink($prevPage) ).'">';
+					$ret[] = '<link rel="prev" href="'.htmlspecialchars( $this->_generateLink($prevPage) ).'" />';
 				}
 			}
 
