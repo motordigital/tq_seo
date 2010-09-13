@@ -1,3 +1,6 @@
+2010-09-13 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed use of deprecated methods (Thanks to Ralf Büchner, halbach-media.de)
+
 2010-07-13 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Fixed performance issue with optional HTTP-headers
 	* Added HTML-comment if Google Analytics is disabled because of logged in BE-User

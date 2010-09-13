@@ -48,7 +48,7 @@ class tx_tqseo_cache {
 					WHERE page_uid = '.(int)$pageId.'
 					  AND cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').'
 					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');;
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		if( $row = $TYPO3_DB->sql_fetch_assoc($result) ) {
 			$ret = $row['cache_content'];
@@ -75,7 +75,7 @@ class tx_tqseo_cache {
 						'.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache').',
 						'.$TYPO3_DB->fullQuoteStr($value, 'tq_seo_cache').'
 					) ON DUPLICATE KEY UPDATE cache_content = '.$TYPO3_DB->fullQuoteStr($value, 'tq_seo_cache');
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
 			return true;
@@ -98,7 +98,7 @@ class tx_tqseo_cache {
 		$query = 'SELECT page_uid, cache_content FROM tq_seo_cache
 					WHERE cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').'
 					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		while( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {
 			$ret[ $row['page_uid'] ] = $row['cache_content'];
@@ -125,7 +125,7 @@ class tx_tqseo_cache {
 					WHERE page_uid = '.(int)$pageId.'
 					  AND cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').'
 					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
 			return true;
@@ -144,7 +144,7 @@ class tx_tqseo_cache {
 
 		$query = 'DELETE FROM tq_seo_cache
 					WHERE page_uid = '.(int)$pageId;
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
 			return true;
@@ -163,7 +163,7 @@ class tx_tqseo_cache {
 
 		$query = 'DELETE FROM tq_seo_cache
 					WHERE cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache');
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
 			return true;
@@ -179,7 +179,7 @@ class tx_tqseo_cache {
 		global $TYPO3_DB;
 
 		$query = 'TRUNCATE tq_seo_cache';
-		$res = $TYPO3_DB->sql(TYPO3_db, $query);
+		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
 			return true;
