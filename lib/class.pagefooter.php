@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2010 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -55,19 +55,79 @@ class user_tqseo_pagefooter {
 		#########################################
 		# GOOGLE ANALYTICS
 		#########################################
+
 		if( !empty($tsServices['googleAnalytics']) ) {
-			if( !(empty($tsServices['googleAnalytics.']['showIfBeLogin']) && $beLoggedIn) ) {
-				$ret[] = '<script type="text/javascript">
+			$gaConf = $tsServices['googleAnalytics.'];
+
+			if( !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
+				$tmp = '';
+
+				$tmp .= '<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :"http://www.");
 document.write(unescape("%3Cscript src=\'" + gaJsHost +"google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
 try {
-var pageTracker = _gat._getTracker("'.htmlspecialchars($tsServices['googleAnalytics']).'");
+var pageTracker = _gat._getTracker("'.htmlspecialchars($tsServices['googleAnalytics']).'");';
+
+				if( !empty($gaConf['anonymizeIp']) ) {
+					$tmp .= '
+_gat._anonymizeIp();';
+				}
+
+				if( !empty($gaConf['customizationCode']) ) {
+					$tmp .= "\n".$this->cObj->stdWrap($gaConf['customizationCode'], $gaConf['customizationCode.']);
+				}
+
+				$tmp .= '
 pageTracker._trackPageview();
 } catch(err) {}</script>';
+
+
+				$ret[] = $tmp;
+
+
+				if( !empty($gaConf['trackDownloads']) && !empty($gaConf['trackDownloadsScript']) ) {
+					$jsFile = t3lib_div::getFileAbsFileName($gaConf['trackDownloadsScript']);
+					$jsfile = preg_replace('/^'.preg_quote(PATH_site,'/').'/i','',$jsFile);
+					$ret[] = '<script type="text/javascript" src="'.htmlspecialchars($jsfile).'"></script>';
+				}
 			} else {
 				$ret[] = '<!-- Google Analytics disabled - Backend-Login detected -->';
+			}
+		}
+
+
+		#########################################
+		# PIWIK
+		#########################################
+		if( !empty($tsServices['piwik.']) && !empty($tsServices['piwik.']['url']) && !empty($tsServices['piwik.']['id']) ) {
+			$piwikConf = $tsServices['piwik.'];
+
+			if( !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
+				$tmp = '';
+
+				$tmp .= '
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://'.htmlspecialchars($piwikConf['url']).'" : "http://'.htmlspecialchars($piwikConf['url']).'");
+document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", '.htmlspecialchars($piwikConf['id']).');
+piwikTracker.trackPageView();';
+
+				if( !empty($piwikConf['customizationCode']) ) {
+					$tmp .= "\n".$this->cObj->stdWrap($piwikConf['customizationCode'], $piwikConf['customizationCode.']);
+				}
+
+				$tmp .= '
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script>';
+
+				$ret[] = $tmp;
+			} else {
+				$ret[] = '<!-- Piwik disabled - Backend-Login detected -->';
 			}
 		}
 

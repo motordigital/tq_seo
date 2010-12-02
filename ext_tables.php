@@ -93,6 +93,61 @@ $tempColumns = array (
 		)
 	),
 
+	'tx_tqseo_priority' => array (
+		'label' => 'LLL:EXT:tq_seo/locallang_db.xml:pages.tx_tqseo_priority',
+		'exclude' => 1,
+		'config' => array (
+			'type' => 'input',
+			'size' => '30',
+			'max' => '255',
+			'checkbox' => '',
+			'eval' => 'int',
+		)
+	),
+
+	'tx_tqseo_change_frequency' => array(
+		'exclude' => 1,
+		'label'   => 'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency',
+		'config'  => array(
+			'type'          => 'select',
+			'items'         => array(
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.0',
+					0
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.1',
+					1
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.2',
+					2
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.3',
+					3
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.4',
+					4
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.5',
+					5
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.6',
+					6
+				),
+				array(
+					'LLL:EXT:tq_seo/locallang_db.php:pages.tx_tqseo_change_frequency.I.7',
+					7
+				),
+			),
+			'size'          => 1,
+			'maxitems'      => 1
+		)
+	),
 );
 
 

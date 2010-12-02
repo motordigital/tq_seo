@@ -11,10 +11,10 @@
 
 $EM_CONF[$_EXTKEY] = array (
 	'title' => 'TEQneers SEO Enhancements',
-	'description' => 'Search Engine Optimization (SEO), Metatags and Pagetitel manipulations',
+	'description' => 'Search Engine Optimization (SEO), Google-Sitemap (XML-Sitemap), Metatags and Pagetitle manipulations',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '1.6.1',
+	'version' => '2.0.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -23,7 +23,7 @@ $EM_CONF[$_EXTKEY] = array (
 	'state' => 'stable',
 	'uploadfolder' => 0,
 	'createDirs' => '',
-	'modify_tables' => '',
+	'modify_tables' => 'pages,pages_language_overlay',
 	'clearcacheonload' => 0,
 	'lockType' => '',
 	'author' => 'Markus Blaschke',
@@ -33,8 +33,8 @@ $EM_CONF[$_EXTKEY] = array (
 	'CGLcompliance_note' => NULL,
 	'constraints' => array (
 		'depends' => array (
-			'typo3' => '',
-			'php' => '',
+			'typo3' => '4.3.0-0.0.0',
+			'php' => '5.2.0-0.0.0',
 		),
 	),
 );

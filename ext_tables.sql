@@ -8,6 +8,8 @@ CREATE TABLE pages (
 	tx_tqseo_is_exclude int(1) DEFAULT '0' NOT NULL,
 	tx_tqseo_inheritance int(11) DEFAULT '0' NOT NULL,
 	tx_tqseo_canonicalurl varchar(255) DEFAULT '' NOT NULL,
+	tx_tqseo_priority int(11) DEFAULT '0' NOT NULL,
+	tx_tqseo_change_frequency int(4) DEFAULT '0' NOT NULL
 );
 
 
@@ -36,4 +38,25 @@ CREATE TABLE tq_seo_cache (
   PRIMARY KEY (uid),
   UNIQUE cache_key (page_uid,cache_section,cache_identifier),
   KEY cache_sect_id (cache_section,cache_identifier)
+) ENGINE=InnoDB;
+
+
+#
+# Table structure for table 'tx_tqseo_sitemap_pages'
+#
+CREATE TABLE tx_tqseo_sitemap_pages (
+  uid int(11) NOT NULL auto_increment,
+  tstamp int(11) DEFAULT '0' NOT NULL,
+  crdate int(11) DEFAULT '0' NOT NULL,
+  page_rootpid int(11) DEFAULT '0' NOT NULL,
+  page_uid int(11) DEFAULT '0' NOT NULL,
+  page_language int(11) DEFAULT '0' NOT NULL,
+  page_url varchar(500) DEFAULT '' NOT NULL,
+  page_hash varchar(32) DEFAULT '',
+  page_depth int(11) DEFAULT '0' NOT NULL,
+  page_change_frequency int(4) DEFAULT '0' NOT NULL,
+  PRIMARY KEY (uid),
+  UNIQUE page_identification (page_uid,page_language,page_hash),
+  KEY language_path (page_rootpid,page_language),
+  KEY page_depth (page_depth)
 ) ENGINE=InnoDB;

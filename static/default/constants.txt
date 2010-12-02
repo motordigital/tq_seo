@@ -104,9 +104,16 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.services/page/05; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
   services.googleAnalytics =
 
+    # cat=plugin.tq_seo.services/page/06; type=boolean; label= Google Analytics Anonymize IP: Enable anonymize IP
+  services.googleAnalytics.anonymizeIp = 0
+    # cat=plugin.tq_seo.services/page/07; type=boolean; label= Google Analytics Track Downloads: Track downloads (with javascript) (BETA!)
+  services.googleAnalytics.trackDownloads = 0
 
+    # cat=plugin.tq_seo.services/page/08; type=string; label= Piwik: Url to your piwik installation (eg. www.example.com/piwik/ - don't use http:// or https:// as prefix!)
+  services.piwik.url =
 
-
+    # cat=plugin.tq_seo.services/page/09; type=string; label= Piwik: Id of your website
+  services.piwik.id =
 
     # cat=plugin.tq_seo.pageTitle/enable/01; type=boolean; label= Apply Tmpl-Sitetitle to absolute <title>: This enables the addition of the template-sitetitle to the rendered page-title (in absolute <title>-mode)
   pageTitle.applySitetitleToPagetitle = 0
@@ -125,5 +132,9 @@ plugin.tq_seo {
 
     # cat=plugin.tq_seo.pageTitle/enable/05; type=options[Sitetitle-Pagetitle=0, Pagetitle-Sitetitle=1]; label= Sitetitle position: Position of template-sitetitle in title
   pageTitle.sitetitlePosition = 0
+
+
+    # cat=plugin.tq_seo.sitemap/page/01; type=options[,Always=1,Hourly=2,Daily=3,Weekly=4,Monthly=5,Yearly=6,Never (archive)=7]; label= Default change frequency: Default change frequency for sitemap cache (will be cached!)
+  sitemap.changeFrequency =
 
 }

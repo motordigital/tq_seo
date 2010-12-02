@@ -22,49 +22,39 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+require_once dirname(__FILE__).'/class.sitemap_base.php';
+
 /**
- * LinkParser
+ * Sitemap TXT
  *
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
  * @version		$Id$
  */
-class user_tqseo_linkparser {
+class tx_tqseo_sitemap_txt extends tx_tqseo_sitemap_base {
 
 	/**
-	 * Add MetaTags
+	 * Create Sitemap
 	 *
-	 * @return	string			XHTML Code with metatags
+	 * @return string 		Text Sitemap
 	 */
-	public function main( &$param, $pObj ) {
-		global $TSFE;
+	protected function createSitemap() {
+		$ret = array();
 
-		$pageUid = NULL;
-
-		// Try to find pageUid
-		if(!empty($param['conf']['parameter'])) {
-			$pageUid = $param['conf']['parameter'];
-		} elseif( !empty($pObj->parameters['allParams']) ) {
-			$parameters = explode(' ', $pObj->parameters['allParams']);
-			$pageUid = reset($parameters);
-		}
-
-		if(!empty($pageUid)) {
-			$pageInfo = $GLOBALS['TSFE']->sys_page->getPage($pageUid);
-
-			if( !empty($pageInfo['tx_tqseo_is_nofollow']) || !empty($pageInfo['tx_tqseo_is_exclude']) ) {
-				$param['finalTag'] = str_replace('<a ', '<a rel="nofollow" ', $param['finalTag'] );
-				$param['finalTagParts']['aTagParams'] .= 'rel="nofollow" ';
+		foreach($this->sitemapPages as $sitemapPage) {
+			if(empty($this->pages[ $sitemapPage['page_uid'] ])) {
+				// invalid page
+				continue;
 			}
+
+			$page = $this->pages[ $sitemapPage['page_uid'] ];
+
+			$ret[] = t3lib_div::locationHeaderUrl( $sitemapPage['page_url'] );;
 		}
 
+		return implode("\n", $ret);
 	}
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']);
 }
 
 ?>

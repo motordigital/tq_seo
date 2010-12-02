@@ -23,48 +23,20 @@
 ***************************************************************/
 
 /**
- * LinkParser
+ * SeoSitemap access
  *
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
  * @version		$Id$
  */
-class user_tqseo_linkparser {
+class tx_tqseo_sitemap_cache_controller {
+	public function clearSeoSitemap() {
+		global $TYPO3_DB;
 
-	/**
-	 * Add MetaTags
-	 *
-	 * @return	string			XHTML Code with metatags
-	 */
-	public function main( &$param, $pObj ) {
-		global $TSFE;
-
-		$pageUid = NULL;
-
-		// Try to find pageUid
-		if(!empty($param['conf']['parameter'])) {
-			$pageUid = $param['conf']['parameter'];
-		} elseif( !empty($pObj->parameters['allParams']) ) {
-			$parameters = explode(' ', $pObj->parameters['allParams']);
-			$pageUid = reset($parameters);
-		}
-
-		if(!empty($pageUid)) {
-			$pageInfo = $GLOBALS['TSFE']->sys_page->getPage($pageUid);
-
-			if( !empty($pageInfo['tx_tqseo_is_nofollow']) || !empty($pageInfo['tx_tqseo_is_exclude']) ) {
-				$param['finalTag'] = str_replace('<a ', '<a rel="nofollow" ', $param['finalTag'] );
-				$param['finalTagParts']['aTagParams'] .= 'rel="nofollow" ';
-			}
-		}
-
+		$query = 'TRUNCATE tx_tqseo_sitemap_pages';
+		$TYPO3_DB->sql_query($query);
 	}
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']);
 }
 
 ?>

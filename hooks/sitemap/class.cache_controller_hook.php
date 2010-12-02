@@ -23,48 +23,28 @@
 ***************************************************************/
 
 /**
- * LinkParser
+ * Seo Sitemapo backend cache action hook
  *
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
  * @version		$Id$
  */
-class user_tqseo_linkparser {
-
-	/**
-	 * Add MetaTags
-	 *
-	 * @return	string			XHTML Code with metatags
-	 */
-	public function main( &$param, $pObj ) {
-		global $TSFE;
-
-		$pageUid = NULL;
-
-		// Try to find pageUid
-		if(!empty($param['conf']['parameter'])) {
-			$pageUid = $param['conf']['parameter'];
-		} elseif( !empty($pObj->parameters['allParams']) ) {
-			$parameters = explode(' ', $pObj->parameters['allParams']);
-			$pageUid = reset($parameters);
+class tx_tqseo_sitemap_cache_controller_hook implements backend_cacheActionsHook {
+	public function manipulateCacheActions(&$cacheActions, &$optionValues) {
+		if( $GLOBALS['BE_USER']->isAdmin() ) {
+			// Add new cache menu item
+			$title = $GLOBALS['LANG']->sL('LLL:EXT:tq_seo/hooks/sitemap/locallang.xml:clearSeoSitemap');
+			$cacheActions[] = array(
+					'id'    => 'clearRTECache',
+					'title' => $title,
+					'href'  => $GLOBALS['BACK_PATH'] . 'ajax.php?ajaxID=tx_tqseo_sitemap::clearSeoSitemap',
+					'icon'  => '<img'.t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], 'sysext/rtehtmlarea/hooks/clearrtecache/clearrtecache.png', 'width="16" height="16"').' title="'.$title.'" alt="'.$title.'" />'
+					//'icon'  => '<img src="' . t3lib_extMgm::extRelPath('rtehtmlarea') . 'hooks/clearrtecache/clearrtecache.png" width="16" height="16" title="'.htmlspecialchars($title).'" alt="" />'
+			);
+			$optionValues[] = 'clearSeoSitemap';
 		}
-
-		if(!empty($pageUid)) {
-			$pageInfo = $GLOBALS['TSFE']->sys_page->getPage($pageUid);
-
-			if( !empty($pageInfo['tx_tqseo_is_nofollow']) || !empty($pageInfo['tx_tqseo_is_exclude']) ) {
-				$param['finalTag'] = str_replace('<a ', '<a rel="nofollow" ', $param['finalTag'] );
-				$param['finalTagParts']['aTagParams'] .= 'rel="nofollow" ';
-			}
-		}
-
 	}
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']);
 }
 
 ?>

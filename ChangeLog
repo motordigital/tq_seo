@@ -1,3 +1,14 @@
+2010-11-29 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* +++ VERSION 2.0.0 +++
+	* Merged tq_seo_sitemap into tq_seo
+	* Added XML and TXT-Sitemap with full extensions support (eg. tt_news)
+	* Added anonymized IP in Google Analytics
+	* Added Piwik support (BETA)
+	* Added customization of google analystics and piwik (via customizationCode)
+	* Added download tracking (BETA)
+	* Added ext_autoload
+	* Maintained dependencies and conflicts
+
 2010-09-13 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Fixed use of deprecated methods (Thanks to Ralf Büchner, halbach-media.de)
 
