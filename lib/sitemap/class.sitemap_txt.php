@@ -22,8 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once dirname(__FILE__).'/class.sitemap_base.php';
-
 /**
  * Sitemap TXT
  *
@@ -33,6 +31,10 @@ require_once dirname(__FILE__).'/class.sitemap_base.php';
  * @version		$Id$
  */
 class tx_tqseo_sitemap_txt extends tx_tqseo_sitemap_base {
+
+	###########################################################################
+	# Methods
+	###########################################################################
 
 	/**
 	 * Create Sitemap

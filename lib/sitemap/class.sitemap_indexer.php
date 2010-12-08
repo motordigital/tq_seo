@@ -31,8 +31,24 @@
  * @version		$Id$
  */
 class user_tqseo_sitemap_indexer {
+
+	###########################################################################
+	# Attributes
+	###########################################################################
+
+	/**
+	 * Extension configuration
+	 * @var array
+	 */
 	protected $extConf = array();
 
+	###########################################################################
+	# Methods
+	###########################################################################
+
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 
@@ -43,6 +59,13 @@ class user_tqseo_sitemap_indexer {
 		}
 	}
 
+	/**
+	 * Get extension configuration (by name)
+	 *
+	 * @param	string	$name			Configuration settings name
+	 * @param	mixed	$defaultValue	Default value (if configuration doesn't exists)
+	 * @return	mixed
+	 */
 	protected function getExtConf($name, $defaultValue = NULL) {
 		$ret = $defaultValue;
 		if(!empty($this->extConf[$name])) {
@@ -103,6 +126,11 @@ class user_tqseo_sitemap_indexer {
 	 */
 	public function addPageToSitemapIndex() {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
+
+		// check if sitemap is enabled
+		if( empty($TSFE->tmpl->setup['plugin.']['tq_seo.']['sitemap.']['enable']) ) {
+			return true;
+		}
 
 		// Skip non-seo-pages
 		if( $_SERVER['REQUEST_METHOD'] !== 'GET' || !empty($TSFE->page['tx_tqseo_is_exclude']) || !empty($TSFE->fe_user->user['uid']) ) {

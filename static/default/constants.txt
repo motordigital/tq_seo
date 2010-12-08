@@ -57,10 +57,13 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.metaTags/enable/22; type=boolean; label= Canonical Tag: Autogenerate Canonical-Metatag if possible.
   metaTags.useCanonical = 1
 
-    # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
+    # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Canonical Tag (Strict mode): Enable strict mode (all wrong GET-parameters will generate a canonical-tag to the self without GET-params).
+  metaTags.useCanonical.strict = 0
+
+    # cat=plugin.tq_seo.metaTags/enable/24; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
   metaTags.useExpire = 1
 
-    # cat=plugin.tq_seo.metaTags/page/24; type=string; label= P3P Compact Policy: W3C P3P Compact Policy String.
+    # cat=plugin.tq_seo.metaTags/page/25; type=string; label= P3P Compact Policy: W3C P3P Compact Policy String.
   metaTags.p3pCP =
 
     # cat=plugin.tq_seo.metaTags/page/26; type=string; label= P3P Policy Url: URL to your W3C P3P Policy file.
@@ -134,7 +137,9 @@ plugin.tq_seo {
   pageTitle.sitetitlePosition = 0
 
 
-    # cat=plugin.tq_seo.sitemap/page/01; type=options[,Always=1,Hourly=2,Daily=3,Weekly=4,Monthly=5,Yearly=6,Never (archive)=7]; label= Default change frequency: Default change frequency for sitemap cache (will be cached!)
+    # cat=plugin.tq_seo.sitemap/page/01; type=boolean; label= Enable sitemap: Enable sitemap output and indexing (make sure this is set on the root-page to have effect)
+  sitemap.enable = 1
+    # cat=plugin.tq_seo.sitemap/page/02; type=options[,Always=1,Hourly=2,Daily=3,Weekly=4,Monthly=5,Yearly=6,Never (archive)=7]; label= Default change frequency: Default change frequency for sitemap cache (will be cached!)
   sitemap.changeFrequency =
 
 }

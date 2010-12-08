@@ -1,3 +1,14 @@
+2010-12-07 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added possibility to disable sitemap (output and indexing)
+
+2010-12-06 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added error if tx_tqseo_sitemap_pages-table doesn't exists
+	* Added canonical-tag strict-mode
+	* Some code cleanup
+
+2010-12-02 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Improved canonical url (full extensions support, eg. tt_news)
+
 2010-11-29 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* +++ VERSION 2.0.0 +++
 	* Merged tq_seo_sitemap into tq_seo

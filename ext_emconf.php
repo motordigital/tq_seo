@@ -11,10 +11,10 @@
 
 $EM_CONF[$_EXTKEY] = array (
 	'title' => 'TEQneers SEO Enhancements',
-	'description' => 'Search Engine Optimization (SEO), Google-Sitemap (XML-Sitemap), Metatags and Pagetitle manipulations',
+	'description' => 'Search Engine Optimization (SEO), Indexed Google-Sitemap (TXT- and XML-Sitemap) for all Extensions (pibase, extbase), Metatags, Canonical-URL, Pagetitle manipulations, Crawler verification, Piwik and Google Analytics support and some more... multi-language- and multi-tree-support',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '2.0.0',
+	'version' => '2.1.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',

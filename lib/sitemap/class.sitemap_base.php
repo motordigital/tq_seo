@@ -31,13 +31,38 @@
  * @version		$Id$
  */
 abstract class tx_tqseo_sitemap_base {
+	###########################################################################
+	# Attributes
+	###########################################################################
 
+	/**
+	 * Current root pid
+	 * @var integer
+	 */
 	protected $rootPid		= NULL;
+
+	/**
+	 * Sitemap pages
+	 * @var array
+	 */
 	protected $sitemapPages	= array();
+
+	/**
+	 * Page lookups
+	 * @var array
+	 */
 	protected $pages		= array();
 
+	/**
+	 * Extension configuration
+	 * @var array
+	 */
 	protected $extConf		= array();
 
+	/**
+	 * Page change frequency definition list
+	 * @var array
+	 */
 	protected $pageChangeFrequency = array(
 		1 => 'always',
 		2 => 'hourly',
@@ -48,11 +73,23 @@ abstract class tx_tqseo_sitemap_base {
 		7 => 'never',
 	);
 
+	###########################################################################
+	# Methods
+	###########################################################################
+
+	/**
+	 * Fetch sitemap information and generate sitemap
+	 */
 	public function main() {
 		global $TSFE, $TYPO3_DB, $TYPO3_CONF_VARS;
 
 		// INIT
-		$this->rootPid = $TSFE->rootLine[0]['uid'];
+		$this->rootPid = (int)$TSFE->rootLine[0]['uid'];
+
+		// check if sitemap is enabled
+		if( empty($TSFE->tmpl->setup['plugin.']['tq_seo.']['sitemap.']['enable']) ) {
+			$this->showError();
+		}
 
 		// Load ext conf
 		$this->extConf = unserialize($TYPO3_CONF_VARS['EXT']['extConf']['tq_seo']);
@@ -93,6 +130,10 @@ abstract class tx_tqseo_sitemap_base {
 
 		$res = $TYPO3_DB->sql_query($query);
 
+		if( !$res ) {
+			$this->showError();
+		}
+
 		while( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {
 			$this->sitemapPages[] = $row;
 
@@ -111,6 +152,11 @@ abstract class tx_tqseo_sitemap_base {
 						WHERE
 								uid IN ('.implode(',', $typo3Pids).')';
 			$res = $TYPO3_DB->sql_query($query);
+
+			if( !$res ) {
+				$this->showError();
+			}
+
 			while( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {
 				$this->pages[ $row['uid'] ] = $row;
 			}
@@ -121,6 +167,13 @@ abstract class tx_tqseo_sitemap_base {
 		return $ret;
 	}
 
+	/**
+	 * Get extension configuration (by name)
+	 *
+	 * @param	string	$name			Configuration settings name
+	 * @param	mixed	$defaultValue	Default value (if configuration doesn't exists)
+	 * @return	mixed
+	 */
 	protected function getExtConf($name, $defaultValue = NULL) {
 		$ret = $defaultValue;
 		if(!empty($this->extConf[$name])) {
@@ -128,6 +181,23 @@ abstract class tx_tqseo_sitemap_base {
 		}
 
 		return $ret;
+	}
+
+	/**
+	 * Show error
+	 *
+	 * @param	string	$msg			Message
+	 */
+	protected function showError($msg = null) {
+		global $TSFE;
+
+		if( $msg === null ) {
+			$msg = 'Sitemap is not available, please check your configuration';
+		}
+
+		header('HTTP/1.0 503 Service Unavailable');
+		echo $msg;
+		exit;
 	}
 
 	abstract protected function createSitemap();

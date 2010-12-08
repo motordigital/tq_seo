@@ -314,8 +314,9 @@ class user_tqseo_metatags {
 
 			if( !empty($tsfePage['tx_tqseo_canonicalurl']) ) {
 				$canonicalUrl = $tsfePage['tx_tqseo_canonicalurl'];
-			} elseif(!empty($tsSetupSeo['useCanonical']) && empty($TSFE->cHash)) {
-				$canonicalUrl = $this->_detectCanonicalPage();
+			} elseif( !empty($tsSetupSeo['useCanonical']) ) {
+				$strictMode = (bool)(int)$tsSetupSeo['useCanonical.']['strict'];
+				$canonicalUrl = $this->_detectCanonicalPage($strictMode);
 			}
 
 			if( !empty($canonicalUrl) ) {
@@ -356,17 +357,37 @@ class user_tqseo_metatags {
 	 *
 	 * @return	string			Page Id or url
 	 */
-	protected function _detectCanonicalPage() {
+	protected function _detectCanonicalPage($strictMode = false) {
 		global $TSFE;
 
-		// Init with current page
-		$ret = $TSFE->id;
+		// Skip no_cache-pages
+		if( !empty($TSFE->no_cache) ) {
+			if( $strictMode ) {
+				// force canonical-url to page url (without any parameters)
+				return $TSFE->id;
+			} else {
+				return null;
+			}
+		}
 
-		###############################
-		# Content from pid
-		###############################
+		// Fetch chash
+		$pageHash = NULL;
+		if(!empty($TSFE->cHash)) {
+			$pageHash = $TSFE->cHash;
+		}
+
 		if( !empty($this->cObj->data['content_from_pid']) ) {
-			return $this->cObj->data['content_from_pid'];
+			###############################
+			# Content from pid
+			###############################
+			$ret = $this->cObj->data['content_from_pid'];
+		} else {
+			// Fetch pageUrl
+			if( $pageHash !== NULL ) {
+				$ret = $TSFE->anchorPrefix;
+			} else {
+				$ret = $TSFE->id;
+			}
 		}
 
 		return $ret;
