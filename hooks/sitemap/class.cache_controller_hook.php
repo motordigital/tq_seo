@@ -22,6 +22,9 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+// Load interface (WHY do we need this? sometimes it will break the BE)
+require_once PATH_typo3.'interfaces/interface.backend_cacheActionsHook.php';
+
 /**
  * Seo Sitemapo backend cache action hook
  *

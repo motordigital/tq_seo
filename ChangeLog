@@ -1,3 +1,8 @@
+2010-12-17 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added enable/disable of dublin core (DC.) metatags (Thanks to Manfred Egger)
+	* Disabled cooluri in sitemap output (Thanks to Bastian Dünhofen)
+	* Added fix for missing interface in BE (Thanks to Philipp Gampe, send an email and don't post it to a TYPO3 mailinglist)
+
 2010-12-07 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added possibility to disable sitemap (output and indexing)
 

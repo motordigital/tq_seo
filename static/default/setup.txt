@@ -48,6 +48,7 @@ plugin.tq_seo {
 	}
 
 	metaTags {
+		enableDC = {$plugin.tq_seo.metaTags.enableDC}
 		description = {$plugin.tq_seo.metaTags.description}
 		keywords = {$plugin.tq_seo.metaTags.keywords}
 		copyright = {$plugin.tq_seo.metaTags.copyright}
@@ -182,6 +183,7 @@ tqSeoSitemapTxt {
 		admPanel = 0
 		simulateStaticDocuments = 0
 		tx_realurl_enable = 0
+		tx_cooluri_enable = 0
 
 		index_enable = 0
 	}
@@ -203,6 +205,7 @@ tqSeoSitemapXml {
 		admPanel = 0
 		simulateStaticDocuments = 0
 		tx_realurl_enable = 0
+		tx_cooluri_enable = 0
 
 		index_enable = 0
 	}

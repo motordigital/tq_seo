@@ -72,6 +72,8 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.metaTags/enable/27; type=boolean; label= Link generation: Automatic generate index, up, prev und next links (metatags).
   metaTags.linkGeneration = 1
 
+    # cat=plugin.tq_seo.metaTags/enable/28; type=boolean; label= Meta Description: Enable Dublin Core (DC.) metatags
+  metaTags.enableDC  = 1
 
 
     # cat=plugin.tq_seo.crawler/page/01; type=boolean; label= Crawler Index: Should the crawler (eg. Google) index the page and subpages

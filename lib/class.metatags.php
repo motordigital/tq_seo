@@ -41,14 +41,20 @@ class user_tqseo_metatags {
 		global $TSFE;
 
 		// INIT
-		$ret		= array();
-		$tsSetup	= $TSFE->tmpl->setup;
-		$cObj		= $TSFE->cObj;
-		$pageMeta	= array();
-		$tsfePage	= $TSFE->page;
+		$ret			= array();
+		$tsSetup		= $TSFE->tmpl->setup;
+		$cObj			= $TSFE->cObj;
+		$pageMeta		= array();
+		$tsfePage		= $TSFE->page;
+
+		$enableMetaDc	= true;
 
 		if(!empty($tsSetup['plugin.']['tq_seo.']['metaTags.'])) {
 			$tsSetupSeo = $tsSetup['plugin.']['tq_seo.']['metaTags.'];
+
+			if( empty($tsSetupSeo['enableDC']) ) {
+				$enableMetaDc = false;
+			}
 
 			#####################################
 			# FETCH METADATA FROM PAGE
@@ -109,32 +115,44 @@ class user_tqseo_metatags {
 			#####################################
 
 			// title
-			if( !empty($tsSetupSeo['title']) ) {
+			if( !empty($tsSetupSeo['title']) && $enableMetaDc ) {
 				$ret[] = '<meta name="DC.title" content="'.htmlspecialchars($tsSetupSeo['title']).'" />';
 			}
 
 			// description
 			if( !empty($tsSetupSeo['description']) ) {
 				$ret[] = '<meta name="description" content="'.htmlspecialchars($tsSetupSeo['description']).'" />';
-				$ret[] = '<meta name="DC.Description" content="'.htmlspecialchars($tsSetupSeo['description']).'" />';
+
+				if($enableMetaDc) {
+					$ret[] = '<meta name="DC.Description" content="'.htmlspecialchars($tsSetupSeo['description']).'" />';
+				}
 			}
 
 			// keywords
 			if( !empty($tsSetupSeo['keywords']) ) {
 				$ret[] = '<meta name="keywords" content="'.htmlspecialchars($tsSetupSeo['keywords']).'" />';
-				$ret[] = '<meta name="DC.Subject" content="'.htmlspecialchars($tsSetupSeo['keywords']).'" />';
+
+				if($enableMetaDc) {
+					$ret[] = '<meta name="DC.Subject" content="'.htmlspecialchars($tsSetupSeo['keywords']).'" />';
+				}
 			}
 
 			// copyright
 			if( !empty($tsSetupSeo['copyright']) ) {
 				$ret[] = '<meta name="copyright" content="'.htmlspecialchars($tsSetupSeo['copyright']).'" />';
-				$ret[] = '<meta name="DC.Rights" content="'.htmlspecialchars($tsSetupSeo['copyright']).'" />';
+
+				if($enableMetaDc) {
+					$ret[] = '<meta name="DC.Rights" content="'.htmlspecialchars($tsSetupSeo['copyright']).'" />';
+				}
 			}
 
 			// language
 			if( !empty($tsSetupSeo['language']) ) {
 				$ret[] = '<meta http-equiv="content-language" content="'.htmlspecialchars($tsSetupSeo['language']).'" />';
-				$ret[] = '<meta name="DC.Language" scheme="NISOZ39.50" content="'.htmlspecialchars($tsSetupSeo['language']).'" />';
+
+				if($enableMetaDc) {
+					$ret[] = '<meta name="DC.Language" scheme="NISOZ39.50" content="'.htmlspecialchars($tsSetupSeo['language']).'" />';
+				}
 			}
 
 			// email
@@ -146,11 +164,14 @@ class user_tqseo_metatags {
 			// author
 			if( !empty($tsSetupSeo['author']) ) {
 				$ret[] = '<meta name="author" content="'.htmlspecialchars($tsSetupSeo['author']).'" />';
-				$ret[] = '<meta name="DC.Creator" content="'.htmlspecialchars($tsSetupSeo['author']).'" />';
+
+				if($enableMetaDc) {
+					$ret[] = '<meta name="DC.Creator" content="'.htmlspecialchars($tsSetupSeo['author']).'" />';
+				}
 			}
 
 			// author
-			if( !empty($tsSetupSeo['publisher']) ) {
+			if( !empty($tsSetupSeo['publisher']) && $enableMetaDc ) {
 				$ret[] = '<meta name="DC.Publisher" content="'.htmlspecialchars($tsSetupSeo['publisher']).'" />';
 			}
 
@@ -167,7 +188,10 @@ class user_tqseo_metatags {
 			// last-update
 			if( !empty($tsSetupSeo['useLastUpdate']) && !empty($tsSetupSeo['lastUpdate']) ) {
 				$ret[] = '<meta name="date" content="'.htmlspecialchars($tsSetupSeo['lastUpdate']).'" />';
-				$ret[] = '<meta name="DC.date" content="'.htmlspecialchars($tsSetupSeo['lastUpdate']).'" />';
+
+				if($enableMetaDc) {
+					$ret[] = '<meta name="DC.date" content="'.htmlspecialchars($tsSetupSeo['lastUpdate']).'" />';
+				}
 			}
 
 			// expire
