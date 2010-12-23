@@ -33,6 +33,12 @@
 class user_tqseo_metatags {
 
 	/**
+	 * List of stdWrap manipulations
+	 * @var array
+	 */
+	protected $_stdWrapList = array();
+
+	/**
 	 * Add MetaTags
 	 *
 	 * @return	string			XHTML Code with metatags
@@ -51,6 +57,11 @@ class user_tqseo_metatags {
 
 		if(!empty($tsSetup['plugin.']['tq_seo.']['metaTags.'])) {
 			$tsSetupSeo = $tsSetup['plugin.']['tq_seo.']['metaTags.'];
+
+			// get stdwrap list
+			if( !empty($tsSetupSeo['stdWrap.']) ) {
+				$this->_stdWrapList = $tsSetupSeo['stdWrap.'];
+			}
 
 			if( empty($tsSetupSeo['enableDC']) ) {
 				$enableMetaDc = false;
@@ -109,6 +120,27 @@ class user_tqseo_metatags {
 					$tsSetupSeo[$metaKey] = $metaValue;
 				}
 			}
+
+			#####################################
+			# StdWrap List
+			#####################################
+			$stdWrapItemList = array(
+				'title',
+				'description',
+				'keywords',
+				'copyright',
+				'language',
+				'email',
+				'author',
+				'publisher',
+				'distribution',
+				'rating',
+				'lastUpdate',
+			);
+			foreach($stdWrapItemList as $key) {
+				$tsSetupSeo[$key] = $this->_applyStdWrap($key, $tsSetupSeo[$key]);
+			}
+
 
 			#####################################
 			# PAGE META
@@ -415,7 +447,23 @@ class user_tqseo_metatags {
 		}
 
 		return $ret;
-   }
+	}
+
+	/**
+	 * Process stdWrap from stdWrap list
+	 *
+	 * @param	string		$key	StdWrap-List key
+	 * @param	string		$value	Value
+	 * @return	string
+	 */
+	protected function _applyStdWrap($key, $value) {
+		$key .= '.';
+		if( empty($this->_stdWrapList[$key]) ) {
+			return $value;
+		}
+
+		return $this->cObj->stdWrap($value, $this->_stdWrapList[$key]);
+	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.metatags.php']) {

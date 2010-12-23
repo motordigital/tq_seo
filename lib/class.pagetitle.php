@@ -51,8 +51,21 @@ class user_tqseo_pagetitle {
 		$skipPrefixSuffix	= false;
 		$applySitetitle		= false;
 
+		$stdWrapList		= array();
+
+		// get configuration
 		if( !empty($tsSetup['plugin.']['tq_seo.']) ) {
 			$tsSeoSetup = $tsSetup['plugin.']['tq_seo.'];
+		}
+
+		// get stdwrap list
+		if( !empty($tsSeoSetup['pageTitle.']['stdWrap.']) ) {
+			$stdWrapList = $tsSeoSetup['pageTitle.']['stdWrap.'];
+		}
+
+		// Apply stdWrap before
+		if( !empty($stdWrapList['before.']) ) {
+			$rawTitel = $this->cObj->stdWrap($rawTitel, $stdWrapList['before.']);
 		}
 
 		#######################################################################
@@ -175,6 +188,12 @@ class user_tqseo_pagetitle {
 				// prefix (default)
 				$ret = $tsSetup['sitetitle'].$glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$ret;
 			}
+		}
+
+
+		// Apply stdWrap after
+		if( !empty($stdWrapList['after.']) ) {
+			$ret = $this->cObj->stdWrap($ret, $stdWrapList['after.']);
 		}
 
 		return $ret;

@@ -76,7 +76,7 @@ class tx_tqseo_sitemap_xml extends tx_tqseo_sitemap_base {
 
 		// TODO: pages?
 		$linkConf = array(
-			'parameter'			=> $TSFE->id,
+			'parameter'			=> $TSFE->rootLine[0]['uid'],
 			'additionalParams'	=> '',
 			'useCacheHash'		=> 1,
 		);

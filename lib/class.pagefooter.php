@@ -109,7 +109,7 @@ pageTracker._trackPageview();
 
 				$tmp .= '
 <script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://'.htmlspecialchars($piwikConf['url']).'" : "http://'.htmlspecialchars($piwikConf['url']).'");
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://'.htmlspecialchars($piwikConf['url']).'/" : "http://'.htmlspecialchars($piwikConf['url']).'/");
 document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));
 </script><script type="text/javascript">
 try {
@@ -123,7 +123,7 @@ piwikTracker.trackPageView();';
 				$tmp .= '
 piwikTracker.enableLinkTracking();
 } catch( err ) {}
-</script>';
+</script><noscript><p><img src="http://'.htmlspecialchars($piwikConf['url']).'/piwik.php?idsite='.htmlspecialchars($piwikConf['id']).'" style="border:0" alt="" /></p></noscript>';
 
 				$ret[] = $tmp;
 			} else {

@@ -1,3 +1,12 @@
+2010-12-23 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* XMAS-Release :)
+	* Added some TypoScript inline comments
+	* XML-Sitemap sub-sitemaps points now fixed to rootpid instead of current pid
+	* Added stdWrap-support for pagetitle (Thanks to Manfred Egger)
+	* Added stdWrap-support for metatags
+	* Improved default setup (disables most TYPO3 features in sitemap generators, we don't need admpanel and other stuff)
+	* Fixed and improved piwik-Support (Thanks to Filippo Peverelli)
+
 2010-12-17 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Added enable/disable of dublin core (DC.) metatags (Thanks to Manfred Egger)
 	* Disabled cooluri in sitemap output (Thanks to Bastian Dünhofen)
