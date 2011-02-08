@@ -342,26 +342,50 @@ class user_tqseo_metatags {
 				$rootLine = $TSFE->rootLine;
 				ksort($rootLine);
 
-				$rootPage		= reset( $rootLine );
 				$currentPage	= end( $rootLine );
-				$upPage			= prev( $rootLine );
-				$prevPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['prev.'] );
-				$nextPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['next.'] );
 
-				// Home/Start
-				$ret[] = '<link rel="start" href="'.htmlspecialchars( $this->_generateLink($rootPage['uid']) ).'" />';
-
-				// Up
-				$ret[] = '<link rel="up" href="'.htmlspecialchars( $this->_generateLink($currentPage['pid']) ).'" />';
-
-				// Next
-				if( !empty($nextPage ) ) {
-					$ret[] = '<link rel="next" href="'.htmlspecialchars( $this->_generateLink($nextPage) ).'" />';
+				$rootPage		= reset( $rootLine );
+				$rootPageUrl	= NULL;
+				if( !empty($rootPage) ) {
+					$rootPageUrl	= $this->_generateLink($rootPage['uid']);
 				}
 
-				// Prev
+				$upPage		= $currentPage['pid'];
+				$upPageUrl	= NULL;
+				if( !empty($upPage) ) {
+					$upPageUrl		= $this->_generateLink($upPage);
+				}
+
+				$prevPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['prev.'] );
+				$prevPageUrl	= NULL;
 				if( !empty($prevPage) ) {
-					$ret[] = '<link rel="prev" href="'.htmlspecialchars( $this->_generateLink($prevPage) ).'" />';
+					$prevPageUrl	= $this->_generateLink($prevPage);
+				}
+
+				$nextPage		= $TSFE->cObj->HMENU( $tsSetupSeo['sectionLinks.']['next.'] );
+				$nextPageUrl	= NULL;
+				if( !empty($nextPage) ) {
+					$nextPageUrl	= $this->_generateLink($nextPage);
+				}
+
+				// Root (First page in rootline)
+				if( !empty($rootPageUrl) ) {
+					$ret[] = '<link rel="start" href="'.htmlspecialchars($rootPageUrl).'" />';
+				}
+
+				// Up (One page up in rootline)
+				if( !empty($upPageUrl) ) {
+					$ret[] = '<link rel="up" href="'.htmlspecialchars($upPageUrl).'" />';
+				}
+
+				// Next (Next page in rootline)
+				if( !empty($nextPageUrl) ) {
+					$ret[] = '<link rel="next" href="'.htmlspecialchars($nextPageUrl).'" />';
+				}
+
+				// Prev (Previous page in rootline)
+				if( !empty($prevPageUrl) ) {
+					$ret[] = '<link rel="prev" href="'.htmlspecialchars($prevPageUrl).'" />';
 				}
 			}
 
@@ -377,7 +401,10 @@ class user_tqseo_metatags {
 
 			if( !empty($canonicalUrl) ) {
 				$canonicalUrl = t3lib_div::locationHeaderUrl( $this->_generateLink($canonicalUrl) );
-				$ret[] = '<link rel="canonical" href="'.htmlspecialchars($canonicalUrl).'" />';
+
+				if( !empty($canonicalUrl) ) {
+					$ret[] = '<link rel="canonical" href="'.htmlspecialchars($canonicalUrl).'" />';
+				}
 			}
 
 			#####################################

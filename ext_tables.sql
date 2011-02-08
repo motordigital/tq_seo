@@ -12,8 +12,6 @@ CREATE TABLE pages (
 	tx_tqseo_change_frequency int(4) DEFAULT '0' NOT NULL
 );
 
-
-
 #
 # Table structure for table 'pages_language_overlay'
 #
@@ -24,11 +22,10 @@ CREATE TABLE pages_language_overlay (
 	tx_tqseo_canonicalurl varchar(255) DEFAULT '' NOT NULL,
 );
 
-
 #
 # Table structure for table 'tq_seo_cache'
 #
-CREATE TABLE tq_seo_cache (
+CREATE TABLE tx_tqseo_cache (
   uid int(11) NOT NULL auto_increment,
   tstamp int(11) DEFAULT '0' NOT NULL,
   page_uid int(11) DEFAULT '0' NOT NULL,
@@ -39,7 +36,6 @@ CREATE TABLE tq_seo_cache (
   UNIQUE cache_key (page_uid,cache_section,cache_identifier),
   KEY cache_sect_id (cache_section,cache_identifier)
 ) ENGINE=InnoDB;
-
 
 #
 # Table structure for table 'tx_tqseo_sitemap_pages'
@@ -56,7 +52,7 @@ CREATE TABLE tx_tqseo_sitemap_pages (
   page_depth int(11) DEFAULT '0' NOT NULL,
   page_change_frequency int(4) DEFAULT '0' NOT NULL,
   PRIMARY KEY (uid),
-  UNIQUE page_identification (page_uid,page_language,page_hash),
-  KEY language_path (page_rootpid,page_language),
+  UNIQUE page_identification (page_uid,page_language,page_url),
+  KEY language_path (page_rootpid,page_language,page_depth),
   KEY page_depth (page_depth)
 ) ENGINE=InnoDB;

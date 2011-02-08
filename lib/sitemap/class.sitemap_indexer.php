@@ -217,14 +217,8 @@ class user_tqseo_sitemap_indexer {
 						tx_tqseo_sitemap_pages
 					WHERE
 							page_uid = '.$pageData['page_uid'].'
-						AND	page_language = '.$pageData['page_language'];
-
-		if( $pageHash === NULL ) {
-			$query .= ' AND page_hash IS NULL';
-		} else {
-			$query .= ' AND page_hash = '.$pageData['page_hash'];
-		}
-
+						AND	page_language = '.$pageData['page_language'].'
+						AND page_url = '.$pageData['page_url'];
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {

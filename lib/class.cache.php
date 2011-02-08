@@ -44,10 +44,10 @@ class tx_tqseo_cache {
 		global $TYPO3_DB;
 		$ret = null;
 
-		$query = 'SELECT cache_content FROM tq_seo_cache
+		$query = 'SELECT cache_content FROM tx_tqseo_cache
 					WHERE page_uid = '.(int)$pageId.'
-					  AND cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').'
-					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');;
+					  AND cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tx_tqseo_cache').'
+					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tx_tqseo_cache');;
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $row = $TYPO3_DB->sql_fetch_assoc($result) ) {
@@ -68,13 +68,13 @@ class tx_tqseo_cache {
 	static public function set($pageId, $section, $identifier, $value) {
 		global $TYPO3_DB;
 
-		$query = 'INSERT INTO tq_seo_cache (page_uid, cache_section, cache_identifier, cache_content)
+		$query = 'INSERT INTO tx_tqseo_cache (page_uid, cache_section, cache_identifier, cache_content)
 					VALUES(
 						'.(int)$pageId.',
-						'.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').',
-						'.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache').',
-						'.$TYPO3_DB->fullQuoteStr($value, 'tq_seo_cache').'
-					) ON DUPLICATE KEY UPDATE cache_content = '.$TYPO3_DB->fullQuoteStr($value, 'tq_seo_cache');
+						'.$TYPO3_DB->fullQuoteStr($section, 'tx_tqseo_cache').',
+						'.$TYPO3_DB->fullQuoteStr($identifier, 'tx_tqseo_cache').',
+						'.$TYPO3_DB->fullQuoteStr($value, 'tx_tqseo_cache').'
+					) ON DUPLICATE KEY UPDATE cache_content = '.$TYPO3_DB->fullQuoteStr($value, 'tx_tqseo_cache');
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
@@ -95,9 +95,9 @@ class tx_tqseo_cache {
 		global $TYPO3_DB;
 		$ret = array();
 
-		$query = 'SELECT page_uid, cache_content FROM tq_seo_cache
-					WHERE cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').'
-					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');
+		$query = 'SELECT page_uid, cache_content FROM tx_tqseo_cache
+					WHERE cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tx_tqseo_cache').'
+					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tx_tqseo_cache');
 		$res = $TYPO3_DB->sql_query($query);
 
 		while( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {
@@ -118,13 +118,13 @@ class tx_tqseo_cache {
 		global $TYPO3_DB;
 
 		$pageId			= (int)$pageId;
-		$section		= $TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache');
-		$identifier		= $TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');
+		$section		= $TYPO3_DB->fullQuoteStr($section, 'tx_tqseo_cache');
+		$identifier		= $TYPO3_DB->fullQuoteStr($identifier, 'tx_tqseo_cache');
 
-		$query = 'DELETE FROM tq_seo_cache
+		$query = 'DELETE FROM tx_tqseo_cache
 					WHERE page_uid = '.(int)$pageId.'
-					  AND cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache').'
-					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tq_seo_cache');
+					  AND cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tx_tqseo_cache').'
+					  AND cache_identifier = '.$TYPO3_DB->fullQuoteStr($identifier, 'tx_tqseo_cache');
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
@@ -142,7 +142,7 @@ class tx_tqseo_cache {
 	static public function clearByPage($pageId) {
 		global $TYPO3_DB;
 
-		$query = 'DELETE FROM tq_seo_cache
+		$query = 'DELETE FROM tx_tqseo_cache
 					WHERE page_uid = '.(int)$pageId;
 		$res = $TYPO3_DB->sql_query($query);
 
@@ -161,8 +161,8 @@ class tx_tqseo_cache {
 	static public function clearBySection($section) {
 		global $TYPO3_DB;
 
-		$query = 'DELETE FROM tq_seo_cache
-					WHERE cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tq_seo_cache');
+		$query = 'DELETE FROM tx_tqseo_cache
+					WHERE cache_section = '.$TYPO3_DB->fullQuoteStr($section, 'tx_tqseo_cache');
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {
@@ -178,7 +178,7 @@ class tx_tqseo_cache {
 	static public function clearAll() {
 		global $TYPO3_DB;
 
-		$query = 'TRUNCATE tq_seo_cache';
+		$query = 'TRUNCATE tx_tqseo_cache';
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $res ) {

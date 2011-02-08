@@ -3,6 +3,10 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+###############################################################################
+# Pages
+###############################################################################
+
 $tempColumns = array (
 	'tx_tqseo_pagetitle' => array (
 		'label' => 'LLL:EXT:tq_seo/locallang_db.xml:pages.tx_tqseo_pagetitle',
@@ -153,8 +157,35 @@ $tempColumns = array (
 
 t3lib_div::loadTCA('pages');
 t3lib_extMgm::addTCAcolumns('pages',$tempColumns,1);
-$GLOBALS['TCA']['pages']['types']['1']['showitem'] .= ', --div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tabs.seo, tx_tqseo_pagetitle, tx_tqseo_pagetitle_prefix, tx_tqseo_pagetitle_suffix, tx_tqseo_inheritance, tx_tqseo_is_exclude, tx_tqseo_canonicalurl';
-$GLOBALS['TCA']['pages']['types']['4']['showitem'] .= ', --div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tabs.seo, tx_tqseo_pagetitle, tx_tqseo_pagetitle_prefix, tx_tqseo_pagetitle_suffix, tx_tqseo_inheritance, tx_tqseo_is_exclude, tx_tqseo_canonicalurl';
+
+// TCA Palettes
+$TCA['pages']['palettes']['tx_tqseo_pagetitle'] = array(
+	'showitem'			=> 'tx_tqseo_pagetitle,--linebreak--,tx_tqseo_pagetitle_prefix,tx_tqseo_pagetitle_suffix,--linebreak--,tx_tqseo_inheritance',
+	'canNotCollapse'	=> 1
+);
+
+$TCA['pages']['palettes']['tx_tqseo_crawler'] = array(
+	'showitem'			=> 'tx_tqseo_is_exclude,--linebreak--,tx_tqseo_canonicalurl',
+	'canNotCollapse'	=> 1
+);
+
+$TCA['pages']['palettes']['tx_tqseo_sitemap'] = array(
+	'showitem'			=> 'tx_tqseo_priority,--linebreak--,tx_tqseo_change_frequency',
+	'canNotCollapse'	=> 1
+);
+
+// Put it for standard page
+if( t3lib_div::compat_version('4.5') ) {
+	// TYPO3 4.5 and higher
+	t3lib_extMgm::addToAllTCAtypes('pages','--div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tab.seo;,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.pagetitle;tx_tqseo_pagetitle,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.crawler;tx_tqseo_crawler,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.sitemap;tx_tqseo_sitemap', '', 'after:author_email');
+} else {
+	// TYPO3 4.3 and 4.4
+	t3lib_extMgm::addToAllTCAtypes('pages','--div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tab.seo;,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.pagetitle;tx_tqseo_pagetitle,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.crawler;tx_tqseo_crawler,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.sitemap;tx_tqseo_sitemap', '', 'after:description');
+}
+
+###############################################################################
+# Pages Language Overlay
+###############################################################################
 
 $tempColumns = array (
 	'tx_tqseo_pagetitle' => array (
@@ -217,14 +248,28 @@ $tempColumns = array (
 	),
 );
 
-
 t3lib_div::loadTCA('pages_language_overlay');
 t3lib_extMgm::addTCAcolumns('pages_language_overlay',$tempColumns,1);
-t3lib_extMgm::addToAllTCAtypes('pages_language_overlay', 'tx_tqseo_pagetitle', '', 'after:nav_title');
-t3lib_extMgm::addToAllTCAtypes('pages_language_overlay', 'tx_tqseo_pagetitle_prefix', '', 'after:tx_tqseo_pagetitle');
-t3lib_extMgm::addToAllTCAtypes('pages_language_overlay', 'tx_tqseo_pagetitle_suffix', '', 'after:tx_tqseo_pagetitle_prefix');
-t3lib_extMgm::addToAllTCAtypes('pages_language_overlay', 'tx_tqseo_canonicalurl', '', 'after:tx_tqseo_pagetitle_suffix');
 
+// TCA Palettes
+$TCA['pages_language_overlay']['palettes']['tx_tqseo_pagetitle'] = array(
+	'showitem'			=> 'tx_tqseo_pagetitle,--linebreak--,tx_tqseo_pagetitle_prefix,tx_tqseo_pagetitle_suffix',
+	'canNotCollapse'	=> 1
+);
+
+$TCA['pages_language_overlay']['palettes']['tx_tqseo_crawler'] = array(
+	'showitem'			=> 'tx_tqseo_canonicalurl',
+	'canNotCollapse'	=> 1
+);
+
+// Put it for standard page overlay
+if( t3lib_div::compat_version('4.5') ) {
+	// TYPO3 4.5 and higher
+	t3lib_extMgm::addToAllTCAtypes('pages_language_overlay','--div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tab.seo;,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.pagetitle;tx_tqseo_pagetitle,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.crawler;tx_tqseo_crawler', '', 'after:author_email');
+} else {
+	// TYPO3 4.3 and 4.4
+	t3lib_extMgm::addToAllTCAtypes('pages_language_overlay','--div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tab.seo;,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.pagetitle;tx_tqseo_pagetitle,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.crawler;tx_tqseo_crawler', '', 'after:description');
+}
 
 t3lib_extMgm::addStaticFile($_EXTKEY,'static/default/', 'TEQneers SEO');
 

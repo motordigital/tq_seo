@@ -1,4 +1,14 @@
+2011-02-08 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.4.0
+	* If you have problemes with updating tx_tqseo_sitemap_pages, remove table and recreate it with the extension manager, sorry...
+	* Fixed empty link-url (Thanks to De Contardi Riccardo)
+	* Cleanup (renamed tq_seo_cache to tx_tqseo_cache, feel free to remove tq_seo_cache)
+	* Fixed possible duplicate urls in sitemap
+	* Added support for page:lastUpdate (TYPO3 4.5, fallback to SYS_LASTCHANGED if empty)
+	* Fixed SEO-tab position, cleanup and hopefully more userfriendly :)
+
 2010-12-23 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.3.0
 	* XMAS-Release :)
 	* Added some TypoScript inline comments
 	* XML-Sitemap sub-sitemaps points now fixed to rootpid instead of current pid

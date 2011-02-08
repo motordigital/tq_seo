@@ -119,10 +119,11 @@ plugin.tq_seo {
 			author_page.field = author
 			email_page.field = author_email
 
+			lastUpdate_page = TEXT
 			lastUpdate_page {
 				data = page:lastUpdated
+				stdWrap.ifEmpty.data = register : SYS_LASTCHANGED
 				date = c
-				data = register : SYS_LASTCHANGED
 			}
 		}
 

@@ -16,5 +16,5 @@ sitemap_clearCachePossibility =
    # cat=Sitemap; type=int+; label=expiry: Days we should keep pages or urls at least (0 = default is 60)
 sitemap_pageSitemapExpireDays =
 
-   # cat=Sitemap; type=boolean; label=Language: Obey Language when generating sitemap (default is false)
+   # cat=Sitemap; type=boolean; label=Language: Obey Language when generating sitemap (default is false, eg. for language-domain setups)
 sitemap_ObeySysLanguage = 0
