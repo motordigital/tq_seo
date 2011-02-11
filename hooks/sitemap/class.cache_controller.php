@@ -34,7 +34,7 @@ class tx_tqseo_sitemap_cache_controller {
 	public function clearSeoSitemap() {
 		global $TYPO3_DB;
 
-		$query = 'TRUNCATE tx_tqseo_sitemap_pages';
+		$query = 'TRUNCATE tx_tqseo_sitemap';
 		$TYPO3_DB->sql_query($query);
 	}
 }

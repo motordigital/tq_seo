@@ -1,3 +1,9 @@
+2011-02-11 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.4.1
+	* Fixed MySQL 5.0 "max-key-length"-issue (please update to MySQL 5.1 anyway...)
+	* Renamed tx_tqseo_sitemap_pages to tx_tqseo_sitemap to make sure, that sitemap is cleaned up and table is up-2-date
+	* Changed tx_tqseo_sitemap.page_hash to page_chash and implemented page_hash (md5) of url
+
 2011-02-08 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Version 2.4.0
 	* If you have problemes with updating tx_tqseo_sitemap_pages, remove table and recreate it with the extension manager, sorry...

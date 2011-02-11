@@ -103,16 +103,16 @@ abstract class tx_tqseo_sitemap_base {
 		# Fetch sitemap pages
 		#########################################
 		$query = 'SELECT
-						tsp.*
+						ts.*
 					FROM
-						tx_tqseo_sitemap_pages tsp
+						tx_tqseo_sitemap ts
 						INNER JOIN pages p
-							ON		p.uid = tsp.page_uid
+							ON		p.uid = ts.page_uid
 								AND	p.deleted = 0
 								AND p.hidden = 0
 								AND p.tx_tqseo_is_exclude = 0
 					WHERE
-						tsp.page_rootpid = '.$TYPO3_DB->fullQuoteStr($this->rootPid, 'tx_tqseo_sitemap_pages');
+						ts.page_rootpid = '.$TYPO3_DB->fullQuoteStr($this->rootPid, 'tx_tqseo_sitemap');
 
 		if( $this->getExtConf('sitemap_ObeySysLanguage', false) ) {
 			$sysLanguageId = 0;
@@ -120,11 +120,11 @@ abstract class tx_tqseo_sitemap_base {
 				$sysLanguageId = (int)$TSFE->tmpl->setup['config.']['sys_language_uid'];
 			}
 
-			$query .= ' AND tsp.page_language = '.$TYPO3_DB->fullQuoteStr($sysLanguageId, 'tx_tqseo_sitemap_pages');
+			$query .= ' AND ts.page_language = '.$TYPO3_DB->fullQuoteStr($sysLanguageId, 'tx_tqseo_sitemap');
 		}
 
 		$query .= ' ORDER BY
-						tsp.page_depth ASC,
+						ts.page_depth ASC,
 						p.pid ASC,
 						p.sorting ASC';
 

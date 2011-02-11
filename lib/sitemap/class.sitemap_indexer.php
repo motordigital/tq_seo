@@ -81,7 +81,6 @@ class user_tqseo_sitemap_indexer {
 	public function clearExpiredSitemapPages() {
 		global $TYPO3_DB, $TSFE, $TYPO3_CONF_VARS;
 
-
 		#####################
 		# Expired pages
 		#####################
@@ -89,7 +88,7 @@ class user_tqseo_sitemap_indexer {
 
 		$tsstamp = time() - $expireDays*24*60*60;
 
-		$query = 'DELETE FROM tx_tqseo_sitemap_pages WHERE tsstamp <= '.(int)$tsstamp;
+		$query = 'DELETE FROM tx_tqseo_sitemap WHERE tsstamp <= '.(int)$tsstamp;
 		$res = $TYPO3_DB->sql_query($query);
 
 		#####################
@@ -99,11 +98,11 @@ class user_tqseo_sitemap_indexer {
 		$deletedSitemapPages = array();
 
 		$query = 'SELECT
-						tsp.uid
+						ts.uid
 					FROM
-						tx_tqseo_sitemap_pages tsp
+						tx_tqseo_sitemap ts
 						LEFT JOIN pages p
-							ON		p.uid = tsp.page_uid
+							ON		p.uid = ts.page_uid
 								AND	p.deleted = 0
 								AND p.hidden = 0
 					WHERE
@@ -116,7 +115,7 @@ class user_tqseo_sitemap_indexer {
 
 		// delete pages
 		if(!empty($deletedSitemapPages)) {
-			$query = 'DELETE FROM tx_tqseo_sitemap_pages WHERE uid IN ('.implode(',', $deletedSitemapPages).')';
+			$query = 'DELETE FROM tx_tqseo_sitemap WHERE uid IN ('.implode(',', $deletedSitemapPages).')';
 			$TYPO3_DB->sql_query($query);
 		}
 	}
@@ -195,7 +194,8 @@ class user_tqseo_sitemap_indexer {
 			'page_uid'				=> $TSFE->id,
 			'page_language'			=> $pageLanguage,
 			'page_url'				=> $pageUrl,
-			'page_hash'				=> $pageHash,
+			'page_hash'				=> md5($pageUrl),
+			'page_chash'			=> $pageHash,
 			'page_depth'			=> count($TSFE->rootLine),
 			'page_change_frequency'	=> $pageChangeFrequency,
 		);
@@ -206,7 +206,7 @@ class user_tqseo_sitemap_indexer {
 			if($pageDataValue === NULL) {
 				$pageDataValue = 'NULL';
 			} else {
-				$pageDataValue = $TYPO3_DB->fullQuoteStr($pageDataValue, 'tx_tqseo_sitemap_pages');
+				$pageDataValue = $TYPO3_DB->fullQuoteStr($pageDataValue, 'tx_tqseo_sitemap');
 			}
 		}
 		unset($pageDataValue);
@@ -214,16 +214,16 @@ class user_tqseo_sitemap_indexer {
 		$query = 'SELECT
 						uid
 					FROM
-						tx_tqseo_sitemap_pages
+						tx_tqseo_sitemap
 					WHERE
 							page_uid = '.$pageData['page_uid'].'
 						AND	page_language = '.$pageData['page_language'].'
-						AND page_url = '.$pageData['page_url'];
+						AND page_hash = '.$pageData['page_hash'];
 		$res = $TYPO3_DB->sql_query($query);
 
 		if( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {
 			$query = 'UPDATE
-							tx_tqseo_sitemap_pages
+							tx_tqseo_sitemap
 						SET
 							tstamp					= '.$pageData['tstamp'].',
 							page_rootpid			= '.$pageData['page_rootpid'].',
@@ -239,7 +239,7 @@ class user_tqseo_sitemap_indexer {
 			# INSERT
 			#####################################
 			$TYPO3_DB->exec_INSERTquery(
-				'tx_tqseo_sitemap_pages',
+				'tx_tqseo_sitemap',
 				$pageData,
 				array_keys($pageData)
 			);
