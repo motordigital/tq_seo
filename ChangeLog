@@ -1,3 +1,11 @@
+2011-04-06 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.4.2
+	* Disabled sourceopt (if installed) in sitemap pages (Thanks to Robert Wunsch)
+	* Fixed db-issue with integers (Thanks to Robert Wunsch, again)
+
+2011-02-11 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Disabled by default services (google analytics/piwik) output if config.disableAllHeaderCode is active to prevent double hit-logging (eg. for ajax-calls, can be renabled by constants/typoscript)
+
 2011-02-11 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Version 2.4.1
 	* Fixed MySQL 5.0 "max-key-length"-issue (please update to MySQL 5.1 anyway...)

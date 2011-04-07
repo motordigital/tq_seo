@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -84,7 +84,7 @@ abstract class tx_tqseo_sitemap_base {
 		global $TSFE, $TYPO3_DB, $TYPO3_CONF_VARS;
 
 		// INIT
-		$this->rootPid = (int)$TSFE->rootLine[0]['uid'];
+		$this->rootPid = tx_tqseo_tools::getRootPid();
 
 		// check if sitemap is enabled
 		if( empty($TSFE->tmpl->setup['plugin.']['tq_seo.']['sitemap.']['enable']) ) {

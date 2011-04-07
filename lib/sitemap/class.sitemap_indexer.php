@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -190,7 +190,7 @@ class user_tqseo_sitemap_indexer {
 		$pageData = array(
 			'tstamp'				=> $tstamp,
 			'crdate'				=> $tstamp,
-			'page_rootpid'			=> $TSFE->rootLine[0]['uid'],
+			'page_rootpid'			=> tx_tqseo_tools::getRootPid(),
 			'page_uid'				=> $TSFE->id,
 			'page_language'			=> $pageLanguage,
 			'page_url'				=> $pageUrl,
@@ -205,7 +205,11 @@ class user_tqseo_sitemap_indexer {
 		foreach($pageData as &$pageDataValue) {
 			if($pageDataValue === NULL) {
 				$pageDataValue = 'NULL';
+			} elseif( is_int($pageDataValue) || is_numeric($pageDataValue) ) {
+				// Don't quote numeric/integers
+				$pageDataValue = (int)$pageDataValue;
 			} else {
+				// String
 				$pageDataValue = $TYPO3_DB->fullQuoteStr($pageDataValue, 'tx_tqseo_sitemap');
 			}
 		}

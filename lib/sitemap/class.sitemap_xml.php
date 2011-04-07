@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -76,7 +76,7 @@ class tx_tqseo_sitemap_xml extends tx_tqseo_sitemap_base {
 
 		// TODO: pages?
 		$linkConf = array(
-			'parameter'			=> $TSFE->rootLine[0]['uid'],
+			'parameter'			=> tx_tqseo_tools::getRootPid(),
 			'additionalParams'	=> '',
 			'useCacheHash'		=> 1,
 		);

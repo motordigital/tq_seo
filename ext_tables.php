@@ -4,8 +4,12 @@ if (!defined ('TYPO3_MODE')) {
 }
 
 ###############################################################################
-# Pages
+# TABLES
 ###############################################################################
+
+###################
+# Pages
+###################
 
 $tempColumns = array (
 	'tx_tqseo_pagetitle' => array (
@@ -183,9 +187,9 @@ if( t3lib_div::compat_version('4.5') ) {
 	t3lib_extMgm::addToAllTCAtypes('pages','--div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tab.seo;,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.pagetitle;tx_tqseo_pagetitle,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.crawler;tx_tqseo_crawler,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.sitemap;tx_tqseo_sitemap', '', 'after:description');
 }
 
-###############################################################################
-# Pages Language Overlay
-###############################################################################
+###################
+# Page overlay (lang)
+###################
 
 $tempColumns = array (
 	'tx_tqseo_pagetitle' => array (
@@ -270,6 +274,22 @@ if( t3lib_div::compat_version('4.5') ) {
 	// TYPO3 4.3 and 4.4
 	t3lib_extMgm::addToAllTCAtypes('pages_language_overlay','--div--;LLL:EXT:tq_seo/locallang_tca.xml:pages.tab.seo;,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.pagetitle;tx_tqseo_pagetitle,--palette--;LLL:EXT:tq_seo/locallang_tca.xml:pages.palette.crawler;tx_tqseo_crawler', '', 'after:description');
 }
+
+###################
+# Domains
+###################
+
+/*
+$tempColumns = array (
+);
+
+t3lib_div::loadTCA('sys_domain');
+t3lib_extMgm::addTCAcolumns('sys_domain',$tempColumns,1);
+*/
+
+###############################################################################
+# CONFIGURATION
+###############################################################################
 
 t3lib_extMgm::addStaticFile($_EXTKEY,'static/default/', 'TEQneers SEO');
 

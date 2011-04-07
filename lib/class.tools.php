@@ -23,40 +23,58 @@
 ***************************************************************/
 
 /**
- * Sitemap TXT
+ * Tools
  *
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
  * @version		$Id$
  */
-class tx_tqseo_sitemap_txt extends tx_tqseo_sitemap_base {
+class tx_tqseo_tools {
 
-	###########################################################################
-	# Methods
-	###########################################################################
 
 	/**
-	 * Create Sitemap
+	 * Get current root pid
 	 *
-	 * @return string 		Text Sitemap
+	 * @return	integer
 	 */
-	protected function createSitemap() {
-		$ret = array();
+	public static function getRootPid() {
+		global $TSFE;
 
-		foreach($this->sitemapPages as $sitemapPage) {
-			if(empty($this->pages[ $sitemapPage['page_uid'] ])) {
-				// invalid page
-				continue;
-			}
+		return (int)$TSFE->rootLine[0]['uid'];
+	}
 
-			$page = $this->pages[ $sitemapPage['page_uid'] ];
+	/**
+	 * Get domain
+	 *
+	 * @return	array
+	 */
+	public function getSysDomain() {
+		global $TSFE, $TYPO3_DB;
+		static $ret = null;
 
-			$ret[] = t3lib_div::locationHeaderUrl( $sitemapPage['page_url'] );;
+		if( $ret !== null ) {
+			return $ret;
 		}
 
-		return implode("\n", $ret);
+		$ret = array();
+
+		$host		= t3lib_div::getIndpEnv('HTTP_HOST');
+		$rootPid	= self::getRootPid();
+
+		$res = $TYPO3_DB->exec_SELECTquery(
+			'*',
+			'sys_domain',
+			'pid = '.(int)$rootPid.' AND domainName = '.$TYPO3_DB->fullQuoteStr($host, 'sys_domain'). ' AND hidden = 0'
+		);
+
+		if( $row = $TYPO3_DB->sql_fetch_assoc($res) ) {
+			$ret = $row;
+		}
+
+		return $ret;
 	}
+
 }
 
 ?>

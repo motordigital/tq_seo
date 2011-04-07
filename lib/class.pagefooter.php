@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -48,6 +48,11 @@ class user_tqseo_pagefooter {
 
 		$beLoggedIn			= isset($GLOBALS['BE_USER']->user['username']);
 
+		$disabledHeaderCode = false;
+		if( !empty($tsSetup['config.']['disableAllHeaderCode']) ) {
+			$disabledHeaderCode = true;
+		}
+
 		if( !empty($tsSetup['plugin.']['tq_seo.']['services.']) ) {
 			$tsServices = $tsSetup['plugin.']['tq_seo.']['services.'];
 		}
@@ -59,7 +64,13 @@ class user_tqseo_pagefooter {
 		if( !empty($tsServices['googleAnalytics']) ) {
 			$gaConf = $tsServices['googleAnalytics.'];
 
-			if( !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
+			$gaEnabled = true;
+
+			if( $disabledHeaderCode && empty($gaConf['enableIfHeaderIsDisabled']) ) {
+				$gaEnabled = false;
+			}
+
+			if( $gaEnabled && !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
 				$tmp = '';
 
 				$tmp .= '<script type="text/javascript">
@@ -92,7 +103,7 @@ pageTracker._trackPageview();
 					$jsfile = preg_replace('/^'.preg_quote(PATH_site,'/').'/i','',$jsFile);
 					$ret[] = '<script type="text/javascript" src="'.htmlspecialchars($jsfile).'"></script>';
 				}
-			} else {
+			} elseif($gaEnabled && $beLoggedIn) {
 				$ret[] = '<!-- Google Analytics disabled - Backend-Login detected -->';
 			}
 		}
@@ -104,7 +115,13 @@ pageTracker._trackPageview();
 		if( !empty($tsServices['piwik.']) && !empty($tsServices['piwik.']['url']) && !empty($tsServices['piwik.']['id']) ) {
 			$piwikConf = $tsServices['piwik.'];
 
-			if( !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
+			$piwikEnabled = true;
+
+			if( $disabledHeaderCode && empty($piwikConf['enableIfHeaderIsDisabled']) ) {
+				$piwikEnabled = false;
+			}
+
+			if( $piwikEnabled && !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
 				$tmp = '';
 
 				$tmp .= '
@@ -126,7 +143,7 @@ piwikTracker.enableLinkTracking();
 </script><noscript><p><img src="http://'.htmlspecialchars($piwikConf['url']).'/piwik.php?idsite='.htmlspecialchars($piwikConf['id']).'" style="border:0" alt="" /></p></noscript>';
 
 				$ret[] = $tmp;
-			} else {
+			} elseif($piwikEnabled && $beLoggedIn) {
 				$ret[] = '<!-- Piwik disabled - Backend-Login detected -->';
 			}
 		}
