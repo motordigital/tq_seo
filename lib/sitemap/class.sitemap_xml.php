@@ -45,8 +45,19 @@ class tx_tqseo_sitemap_xml extends tx_tqseo_sitemap_base {
 	protected function createSitemap() {
 		$ret = '';
 		$page = t3lib_div::_GP('page');
+		
+		$pageLimit		= 10000;
+		
+		// Page limit on sitemap (DEPRECATED)
+		$tmp = $this->getExtConf('sitemap_pageSitemapItemLimit', false);
+		if( $tmp !== false ) {
+			$pageLimit = (int)$tmp;
+		}
+		
+		if( isset($this->tsSetup['pageLimit']) && $this->tsSetup['pageLimit'] != '' ) {
+			$pageLimit = (int)$this->tsSetup['pageLimit'];
+		}
 
-		$pageLimit		= $this->getExtConf('sitemap_pageSitemapItemLimit', '10000');
 		$pageItems		= count($this->sitemapPages);
 		$pageItemBegin	= $pageLimit * ($page-1);
 		$pageCount		= ceil($pageItems/$pageLimit);
@@ -107,10 +118,44 @@ class tx_tqseo_sitemap_xml extends tx_tqseo_sitemap_base {
 	protected function createSitemapPage() {
 		$ret = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
-		$pagePriorityDefaultValue		= floatval($this->getExtConf('sitemap_pagePriorityDefaultValue', 1));
-		$pagePriorityDepthMultiplier	= floatval($this->getExtConf('sitemap_pagePriorityDepthMultiplier', 1));
-		$pagePriorityDepthModificator	= floatval($this->getExtConf('sitemap_pagePriorityDepthModificator', 1));
+		$pagePriorityDefaultValue		= 1;
+		$pagePriorityDepthMultiplier	= 1;
+		$pagePriorityDepthModificator	= 1;
 
+		#####################
+		# Ext conf (DEPRECATED)
+		#####################
+		
+		$tmp = $this->getExtConf('sitemap_pagePriorityDefaultValue', false);
+		if( $tmp !== false ) {
+			$pagePriorityDefaultValue = floatval($tmp);
+		}
+		
+		$tmp = $this->getExtConf('sitemap_pagePriorityDepthMultiplier', false);
+		if( $tmp !== false ) {
+			$pagePriorityDepthMultiplier = floatval($tmp);
+		}
+		
+		$tmp = $this->getExtConf('sitemap_pagePriorityDepthModificator', false);
+		if( $tmp !== false ) {
+			$pagePriorityDepthModificator = floatval($tmp);
+		}
+		
+		#####################
+		# SetupTS conf
+		#####################
+		if( isset($this->tsSetup['pagePriority']) && $this->tsSetup['pagePriority'] != '' ) {
+			$pagePriorityDefaultValue = floatval($this->tsSetup['pagePriority']);
+		}
+		
+		if( isset($this->tsSetup['pagePriorityDepthMultiplier']) && $this->tsSetup['pagePriorityDepthMultiplier'] != '' ) {
+			$pagePriorityDepthMultiplier = floatval($this->tsSetup['pagePriorityDepthMultiplier']);
+		}
+		
+		if( isset($this->tsSetup['pagePriorityDepthModificator']) && $this->tsSetup['pagePriorityDepthModificator'] != '' ) {
+			$pagePriorityDepthModificator = floatval($this->tsSetup['pagePriorityDepthModificator']);
+		}
+		
 		foreach($this->sitemapPages as $sitemapPage) {
 			if(empty($this->pages[ $sitemapPage['page_uid'] ])) {
 				// invalid page

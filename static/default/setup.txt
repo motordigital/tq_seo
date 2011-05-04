@@ -254,8 +254,22 @@ plugin.tq_seo {
 	# Sitemap indexer and generator
 	sitemap =
 	sitemap {
+		## enable sitemap
 		enable = {$plugin.tq_seo.sitemap.enable}
+
+		## default change frequency for pages
 		changeFrequency = {$plugin.tq_seo.sitemap.changeFrequency}
+
+		## page limit on sitemap-index-page
+		pageLimit = {$plugin.tq_seo.sitemap.pageLimit}
+
+		## limit output of sitemap to current fe-language (eg. for language domains)
+		limitToCurrentLanguage = {$plugin.tq_seo.sitemap.limitToCurrentLanguage}
+
+		pagePriority = {$plugin.tq_seo.sitemap.pagePriority}
+		pagePriorityDepthMultiplier = {$plugin.tq_seo.sitemap.pagePriorityDepthMultiplier}
+		pagePriorityDepthModificator = {$plugin.tq_seo.sitemap.pagePriorityDepthModificator}
+
 	}
 }
 

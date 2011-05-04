@@ -30,7 +30,7 @@ $tempColumns = array (
 		'config' => array (
 			'type' => 'input',
 			'size' => '30',
-			'max' => '50',
+			'max' => '255',
 			'checkbox' => '',
 			'eval' => 'trim',
 		)
@@ -42,7 +42,7 @@ $tempColumns = array (
 		'config' => array (
 			'type' => 'input',
 			'size' => '30',
-			'max' => '50',
+			'max' => '255',
 			'checkbox' => '',
 			'eval' => 'trim',
 		)
@@ -82,7 +82,7 @@ $tempColumns = array (
 		'config' => array (
 			'type' => 'input',
 			'size' => '30',
-			'max' => '50',
+			'max' => '255',
 			'checkbox' => '',
 			'eval' => 'trim',
 			'wizards' => Array(

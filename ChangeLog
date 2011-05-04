@@ -1,3 +1,14 @@
+2011-05-04 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.5.0
+	* Moved sitemap configuration from the ext-conf to constants, ext-conf now flaged as deprecated
+	* Updated documentation
+
+2011-04-26 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed canonical tag 50 chars limit bug  (#18095 in bugs.typo3.org)
+
+2011-04-07 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Updated documentation
+
 2011-04-06 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Version 2.4.2
 	* Disabled sourceopt (if installed) in sitemap pages (Thanks to Robert Wunsch)

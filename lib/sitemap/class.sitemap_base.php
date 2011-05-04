@@ -37,30 +37,42 @@ abstract class tx_tqseo_sitemap_base {
 
 	/**
 	 * Current root pid
+	 * 
 	 * @var integer
 	 */
 	protected $rootPid		= NULL;
 
 	/**
 	 * Sitemap pages
+	 * 
 	 * @var array
 	 */
 	protected $sitemapPages	= array();
 
 	/**
 	 * Page lookups
+	 * 
 	 * @var array
 	 */
 	protected $pages		= array();
 
 	/**
 	 * Extension configuration
+	 * 
 	 * @var array
 	 */
 	protected $extConf		= array();
+	
+	/**
+	 * Extension setup configuration
+	 * 
+	 * @var array
+	 */
+	protected $tsSetup		= array();
 
 	/**
 	 * Page change frequency definition list
+	 * 
 	 * @var array
 	 */
 	protected $pageChangeFrequency = array(
@@ -82,12 +94,15 @@ abstract class tx_tqseo_sitemap_base {
 	 */
 	public function main() {
 		global $TSFE, $TYPO3_DB, $TYPO3_CONF_VARS;
-
+		
 		// INIT
-		$this->rootPid = tx_tqseo_tools::getRootPid();
+		$this->rootPid		= tx_tqseo_tools::getRootPid();
+		$limitToFeLanguage	= false;
 
+		$this->tsSetup		= $TSFE->tmpl->setup['plugin.']['tq_seo.']['sitemap.'];
+		
 		// check if sitemap is enabled
-		if( empty($TSFE->tmpl->setup['plugin.']['tq_seo.']['sitemap.']['enable']) ) {
+		if( empty($this->tsSetup['enable']) ) {
 			$this->showError();
 		}
 
@@ -98,29 +113,36 @@ abstract class tx_tqseo_sitemap_base {
 		}
 
 		$typo3Pids = array();
-
+		
+		// Language limit via ext conf [DEPRECATED]
+		if( $this->getExtConf('sitemap_ObeySysLanguage', false) ) {
+			$limitToFeLanguage = true;
+		}
+		
+		// Language limit via setupTS [DEPRECATED]
+		if( !empty($this->tsSetup['limitToCurrentLanguage']) ) {
+			$limitToFeLanguage = true;
+		}
+		
 		#########################################
 		# Fetch sitemap pages
 		#########################################
-		$query = 'SELECT
-						ts.*
-					FROM
-						tx_tqseo_sitemap ts
-						INNER JOIN pages p
-							ON		p.uid = ts.page_uid
+		$query = 'SELECT ts.*
+					FROM tx_tqseo_sitemap ts
+							INNER JOIN pages p
+							  ON	p.uid = ts.page_uid
 								AND	p.deleted = 0
 								AND p.hidden = 0
 								AND p.tx_tqseo_is_exclude = 0
-					WHERE
-						ts.page_rootpid = '.$TYPO3_DB->fullQuoteStr($this->rootPid, 'tx_tqseo_sitemap');
+				   WHERE ts.page_rootpid = '.(int)$this->rootPid;
 
-		if( $this->getExtConf('sitemap_ObeySysLanguage', false) ) {
+		if( $limitToFeLanguage ) {
 			$sysLanguageId = 0;
 			if(!empty($TSFE->tmpl->setup['config.']['sys_language_uid'])) {
 				$sysLanguageId = (int)$TSFE->tmpl->setup['config.']['sys_language_uid'];
 			}
 
-			$query .= ' AND ts.page_language = '.$TYPO3_DB->fullQuoteStr($sysLanguageId, 'tx_tqseo_sitemap');
+			$query .= ' AND ts.page_language = '.(int)$sysLanguageId;
 		}
 
 		$query .= ' ORDER BY
@@ -138,19 +160,16 @@ abstract class tx_tqseo_sitemap_base {
 			$this->sitemapPages[] = $row;
 
 			$sitemapPageId = $row['page_uid'];
-			$typo3Pids[$sitemapPageId] = $sitemapPageId;
+			$typo3Pids[$sitemapPageId] = (int)$sitemapPageId;
 		}
 
 		#########################################
 		# Fetch pages
 		#########################################
 		if(!empty($typo3Pids)) {
-			$query = 'SELECT
-							*
-						FROM
-							pages
-						WHERE
-								uid IN ('.implode(',', $typo3Pids).')';
+			$query = 'SELECT *
+						FROM pages
+					   WHERE uid IN ('.implode(',', $typo3Pids).')';
 			$res = $TYPO3_DB->sql_query($query);
 
 			if( !$res ) {
