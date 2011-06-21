@@ -3,6 +3,9 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+$extPath = t3lib_extMgm::extPath($_EXTKEY);
+$extRelPath = t3lib_extMgm::extRelPath($_EXTKEY);
+
 ###############################################################################
 # TABLES
 ###############################################################################
@@ -209,7 +212,7 @@ $tempColumns = array (
 		'config' => array (
 			'type' => 'input',
 			'size' => '30',
-			'max' => '50',
+			'max' => '255',
 			'checkbox' => '',
 			'eval' => 'trim',
 		)
@@ -220,7 +223,7 @@ $tempColumns = array (
 		'config' => array (
 			'type' => 'input',
 			'size' => '30',
-			'max' => '50',
+			'max' => '255',
 			'checkbox' => '',
 			'eval' => 'trim',
 		)
@@ -232,7 +235,7 @@ $tempColumns = array (
 		'config' => array (
 			'type' => 'input',
 			'size' => '30',
-			'max' => '50',
+			'max' => '255',
 			'checkbox' => '',
 			'eval' => 'trim',
 			'wizards' => Array(
@@ -285,6 +288,30 @@ $tempColumns = array (
 
 t3lib_div::loadTCA('sys_domain');
 t3lib_extMgm::addTCAcolumns('sys_domain',$tempColumns,1);
+*/
+
+###################
+# Settings (Devel)
+###################
+/*
+t3lib_extMgm::addToInsertRecords('tx_tqseo_settings');
+t3lib_extMgm::allowTableOnStandardPages('tx_tqseo_settings');
+
+$TCA['tx_tqseo_settings'] = array(
+	'ctrl' => array(
+		'title'				=> 'LLL:EXT:tq_seo/locallang_db.xml:tx_tqseo_settings',
+		'label'				=> 'uid',
+		'adminOnly'			=> 1,
+		'dynamicConfigFile'	=> $extPath.'tca.php',
+		'iconfile'			=> 'page',
+	),
+	'feInterface' => array (
+		'fe_admin_fieldList' => 'title',
+	),
+	'interface' => array(
+		'showRecordFieldList' => 'title'
+	),
+);
 */
 
 ###############################################################################

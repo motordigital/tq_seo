@@ -49,7 +49,7 @@ class tx_tqseo_tools {
 	 *
 	 * @return	array
 	 */
-	public function getSysDomain() {
+	public static function getSysDomain() {
 		global $TSFE, $TYPO3_DB;
 		static $ret = null;
 
@@ -77,4 +77,7 @@ class tx_tqseo_tools {
 
 }
 
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.tools.php']) {
+	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.tools.php']);
+}
 ?>

@@ -28,6 +28,9 @@
 			<label index="pages.tx_tqseo_change_frequency.I.5">Monthly</label>
 			<label index="pages.tx_tqseo_change_frequency.I.6">Yearly</label>
 			<label index="pages.tx_tqseo_change_frequency.I.7">Never (archive)</label>
+
+			<label index="tx_tqseo_settings">SEO Settings</label>
+			<label index="tx_tqseo_settings.robotstxt">Robots.txt</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pages.tx_tqseo_pagetitle">&lt;title&gt;-TAG (absolut, überschreibt Prefix/Suffix)</label>
@@ -53,6 +56,9 @@
 			<label index="pages.tx_tqseo_change_frequency.I.5">Monatlich</label>
 			<label index="pages.tx_tqseo_change_frequency.I.6">Jährlich</label>
 			<label index="pages.tx_tqseo_change_frequency.I.7">Nie (Archivseite)</label>
+
+			<label index="tx_tqseo_settings">SEO Einstellungen</label>
+			<label index="tx_tqseo_settings.robotstxt">Robots.txt</label>
 		</languageKey>
 	</data>
 </T3locallang>

@@ -1,3 +1,14 @@
+2011-06-21 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.5.1
+	* Fixed again the length of some fields (Thanks to Stéphane Perrenoud)
+
+2011-05-10 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Implemented basic settings table (disabled by now)
+	* Improved documentation (added suggested extensions, fixed style - again)
+
+2011-05-05 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed xclass support
+
 2011-05-04 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Version 2.5.0
 	* Moved sitemap configuration from the ext-conf to constants, ext-conf now flaged as deprecated

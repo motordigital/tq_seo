@@ -341,3 +341,37 @@ tqSeoSitemapXml {
 		message_preview = <!-- -->
 	}
 }
+
+# TQ-Seo Robots.txt
+tqSeoRobotsTxt = PAGE
+tqSeoRobotsTxt {
+	typeNum = 841133
+
+	10 = USER
+	10 {
+		userFunc = tx_tqseo_robots_txt->main
+	}
+
+	config {
+		disableAllHeaderCode = 1
+		additionalHeaders = Content-type:text/plain
+		xhtml_cleaning = 0
+
+		## disable static documents and stuff
+		simulateStaticDocuments = 0
+		tx_realurl_enable = 0
+		tx_cooluri_enable = 0
+		sourceopt.enabled = 0
+
+		## disable indexed search
+		index_enable = 0
+
+		## disable features
+		insertDmailerBoundaries = 0
+		admPanel = 0
+		stat = 0
+		jumpurl_enable = 0
+		debug = 0
+		message_preview = #
+	}
+}

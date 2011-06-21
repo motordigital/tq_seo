@@ -23,48 +23,38 @@
 ***************************************************************/
 
 /**
- * LinkParser
+ * Robots txt
  *
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
  * @version		$Id$
  */
-class user_tqseo_linkparser {
+class tx_tqseo_robots_txt {
+
+	###########################################################################
+	# Methods
+	###########################################################################
+
+
+	###########################################################################
+	# Methods
+	###########################################################################
 
 	/**
-	 * Add MetaTags
-	 *
-	 * @return	string			XHTML Code with metatags
+	 * Fetch sitemap information and generate sitemap
 	 */
-	public function main( &$param, $pObj ) {
-		global $TSFE;
-
-		$pageUid = NULL;
-
-		// Try to find pageUid
-		if(!empty($param['conf']['parameter'])) {
-			$pageUid = $param['conf']['parameter'];
-		} elseif( !empty($pObj->parameters['allParams']) ) {
-			$parameters = explode(' ', $pObj->parameters['allParams']);
-			$pageUid = reset($parameters);
-		}
-
-		if(!empty($pageUid)) {
-			$pageInfo = $GLOBALS['TSFE']->sys_page->getPage($pageUid);
-
-			if( !empty($pageInfo['tx_tqseo_is_nofollow']) || !empty($pageInfo['tx_tqseo_is_exclude']) ) {
-				$param['finalTag'] = str_replace('<a ', '<a rel="nofollow" ', $param['finalTag'] );
-				$param['finalTagParts']['aTagParams'] .= 'rel="nofollow" ';
-			}
-		}
-
+	public function main() {
+		global $TSFE, $TYPO3_DB, $TYPO3_CONF_VARS;
+		
+		//$domain = tx_tqseo_tools::getSysDomain();
+		
+		// TODO
 	}
-
+	
 }
 
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']) {
-	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.robots_txt.php']) {
+	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.robots_txt.php']);
 }
 ?>
