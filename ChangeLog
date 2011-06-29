@@ -1,3 +1,7 @@
+2011-06-29 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Version 2.5.2
+	* Fixed missing definition of tx_tqseo_sitemap in ext_tables.sql (Bug #27658, thanks to Dmitri Pisarev)
+
 2011-06-21 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Version 2.5.1
 	* Fixed again the length of some fields (Thanks to Stéphane Perrenoud)
