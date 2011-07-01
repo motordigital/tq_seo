@@ -93,7 +93,7 @@ class tx_tqseo_sitemap_xml extends tx_tqseo_sitemap_base {
 		);
 
 		for($i=0; $i < $pageCount; $i++) {
-			$linkConf['additionalParams'] = '&type='.$TSFE->type.'&page='.$pageCount;
+			$linkConf['additionalParams'] = '&type='.$TSFE->type.'&page='.($i+1);
 			$sitemaps[] = t3lib_div::locationHeaderUrl($TSFE->cObj->typoLink_URL($linkConf));
 		}
 
