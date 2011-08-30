@@ -57,10 +57,13 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.metaTags/enable/22; type=boolean; label= Canonical Tag: Autogenerate Canonical-Metatag if possible.
   metaTags.useCanonical = 1
 
-    # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
+    # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Canonical Tag (Strict mode): Enable strict mode (all wrong GET-parameters will generate a canonical-tag to the self without GET-params).
+  metaTags.useCanonical.strict = 0
+
+    # cat=plugin.tq_seo.metaTags/enable/24; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
   metaTags.useExpire = 1
 
-    # cat=plugin.tq_seo.metaTags/page/24; type=string; label= P3P Compact Policy: W3C P3P Compact Policy String.
+    # cat=plugin.tq_seo.metaTags/page/25; type=string; label= P3P Compact Policy: W3C P3P Compact Policy String.
   metaTags.p3pCP =
 
     # cat=plugin.tq_seo.metaTags/page/26; type=string; label= P3P Policy Url: URL to your W3C P3P Policy file.
@@ -69,6 +72,8 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.metaTags/enable/27; type=boolean; label= Link generation: Automatic generate index, up, prev und next links (metatags).
   metaTags.linkGeneration = 1
 
+    # cat=plugin.tq_seo.metaTags/enable/28; type=boolean; label= Meta Description: Enable Dublin Core (DC.) metatags
+  metaTags.enableDC  = 1
 
 
     # cat=plugin.tq_seo.crawler/page/01; type=boolean; label= Crawler Index: Should the crawler (eg. Google) index the page and subpages
@@ -85,28 +90,38 @@ plugin.tq_seo {
   metaTags.robotsYdir = 1
 
 
-    # cat=plugin.tq_seo.userAgent/ie/1; type=options[,Highest Version=edge,8.x=8,7.x=7,6.x=6,5.x=5]; label= IE Compatibility Mode: Compatibility mode for Microsoft Internet Explorer.
+    # cat=plugin.tq_seo.userAgent/ie/1; type=options[,Highest Version=edge,10.x=10,9.x=9,8.x=8,7.x=7,6.x=6,5.x=5]; label= IE Compatibility Mode: Compatibility mode for Microsoft Internet Explorer.
   userAgent.ieCompatibilityMode =
 
 
-    # cat=plugin.tq_seo.services/page/01; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
+    # cat=plugin.tq_seo.services/enable/01; type=boolean; label= Enable Services if header is disabled: If config.disableAllHeaderCode = 1 then services are automatically disabled (eg. for ajax calls) to prevent duplicate hits in google analytics/piwik (and/or javascript issues)
+  services.enableIfHeaderIsDisabled = 0
+
+    # cat=plugin.tq_seo.services/page/02; type=string; label= Google Crawler Verification: Verification code for google webmaster tools
   metaTags.googleVerification =
 
-    # cat=plugin.tq_seo.services/page/02; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
+    # cat=plugin.tq_seo.services/page/03; type=string; label= MSN Crawler Verification: Verification code for msn webmaster tools
   metaTags.msnVerification =
 
-    # cat=plugin.tq_seo.services/page/03; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
+    # cat=plugin.tq_seo.services/page/04; type=string; label= Yahoo! Crawler Verification: Verification code for yahoo! webmaster tools
   metaTags.yahooVerification =
 
-    # cat=plugin.tq_seo.services/page/04; type=string; label= Web Of Trust Verification: Verification code for Web of trust (mywot.com)
+    # cat=plugin.tq_seo.services/page/05; type=string; label= Web Of Trust Verification: Verification code for Web of trust (mywot.com)
   metaTags.wotVerification =
 
-    # cat=plugin.tq_seo.services/page/05; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
+    # cat=plugin.tq_seo.services/page/06; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
   services.googleAnalytics =
 
+    # cat=plugin.tq_seo.services/page/07; type=boolean; label= Google Analytics Anonymize IP: Enable anonymize IP
+  services.googleAnalytics.anonymizeIp = 0
+    # cat=plugin.tq_seo.services/page/08; type=boolean; label= Google Analytics Track Downloads: Track downloads (with javascript) (BETA!)
+  services.googleAnalytics.trackDownloads = 0
 
+    # cat=plugin.tq_seo.services/page/09; type=string; label= Piwik: Url to your piwik installation (eg. www.example.com/piwik/ - don't use http:// or https:// as prefix!)
+  services.piwik.url =
 
-
+    # cat=plugin.tq_seo.services/page/10; type=string; label= Piwik: Id of your website
+  services.piwik.id =
 
     # cat=plugin.tq_seo.pageTitle/enable/01; type=boolean; label= Apply Tmpl-Sitetitle to absolute <title>: This enables the addition of the template-sitetitle to the rendered page-title (in absolute <title>-mode)
   pageTitle.applySitetitleToPagetitle = 0
@@ -126,4 +141,26 @@ plugin.tq_seo {
     # cat=plugin.tq_seo.pageTitle/enable/05; type=options[Sitetitle-Pagetitle=0, Pagetitle-Sitetitle=1]; label= Sitetitle position: Position of template-sitetitle in title
   pageTitle.sitetitlePosition = 0
 
+
+
+    # cat=plugin.tq_seo.sitemap/page/01; type=boolean; label= Enable sitemap: Enable sitemap output and indexing (make sure this is set on the root-page to have effect)
+  sitemap.enable = 1
+
+    # cat=plugin.tq_seo.sitemap/page/01; type=int+; label= Page limit: Limit pages on sitemap pages (not on sitemap-index page)
+  sitemap.pageLimit = 10000
+
+    # cat=plugin.tq_seo.sitemap/page/02; type=boolean; label= Limit to current language: Limit the output of the sitemap to the current language (eg. for language domains, so the sitemap only contains pages for the current domain/language)
+  sitemap.limitToCurrentLanguage = 0
+
+    # cat=plugin.tq_seo.sitemap/page/03; type=options[,Always=1,Hourly=2,Daily=3,Weekly=4,Monthly=5,Yearly=6,Never (archive)=7]; label= Default change frequency: Default change frequency for sitemap cache (will be cached!)
+  sitemap.changeFrequency =
+
+    # cat=plugin.tq_seo.sitemap/page/04; type=string; label= Page priority: Value of the default page priority for xml-sitemaps => (priority-modificator) * ( 1/depth * multiplier) (Default 1, only float values!)
+  sitemap.pagePriority = 
+
+    # cat=plugin.tq_seo.sitemap/page/05; type=string; label= Page priority depth multiplier: Value of the page depth multipltiplier (Default 1, only float values!)
+  sitemap.pagePriorityDepthMultiplier = 
+
+    # cat=plugin.tq_seo.sitemap/page/06; type=string; label= Page priority depth modificator: Value of the page depth modificator (Default 1, only float values!)
+  sitemap.pagePriorityDepthModificator = 
 }
