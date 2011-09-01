@@ -23,48 +23,35 @@
 ***************************************************************/
 
 /**
- * LinkParser
+ * Sitemap Output XML
  *
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.linkparser.php 49776 2011-07-13 09:53:11Z mblaschke $
+ * @version		$Id: class.xml.php 50006 2011-07-21 14:30:09Z mblaschke $
  */
-class user_tqseo_linkparser {
+class tx_tqseo_sitemap_output_xml extends tx_tqseo_sitemap_output_base {
 
 	/**
-	 * Add MetaTags
+	 * Build sitemap
 	 *
-	 * @return	string			XHTML Code with metatags
+	 * @return	string
 	 */
-	public function main( &$param, $pObj ) {
-		global $TSFE;
+	protected function _build() {
+		$page = t3lib_div::_GP('page');
 
-		$pageUid = NULL;
+		$sitemapBuilder = new tx_tqseo_sitemap_builder_xml();
 
-		// Try to find pageUid
-		if(!empty($param['conf']['parameter'])) {
-			$pageUid = $param['conf']['parameter'];
-		} elseif( !empty($pObj->parameters['allParams']) ) {
-			$parameters = explode(' ', $pObj->parameters['allParams']);
-			$pageUid = reset($parameters);
+		if(empty($page) || $page == 'index') {
+			return $sitemapBuilder->sitemapIndex();
+		} else {
+			return $sitemapBuilder->sitemap($page);
 		}
-
-		if(!empty($pageUid)) {
-			$pageInfo = $GLOBALS['TSFE']->sys_page->getPage($pageUid);
-
-			if( !empty($pageInfo['tx_tqseo_is_nofollow']) || !empty($pageInfo['tx_tqseo_is_exclude']) ) {
-				$param['finalTag'] = str_replace('<a ', '<a rel="nofollow" ', $param['finalTag'] );
-				$param['finalTagParts']['aTagParams'] .= 'rel="nofollow" ';
-			}
-		}
-
 	}
 
 }
 
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']) {
-	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.linkparser.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/sitemap/output/class.xml.php']) {
+	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/sitemap/output/class.xml.php']);
 }
 ?>

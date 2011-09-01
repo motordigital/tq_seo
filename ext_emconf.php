@@ -11,19 +11,19 @@
 
 $EM_CONF[$_EXTKEY] = array (
 	'title' => 'TEQneers SEO Enhancements',
-	'description' => 'Search Engine Optimization (SEO), Metatags and Pagetitel manipulations',
+	'description' => 'Search Engine Optimization (SEO), Indexed Google-Sitemap (TXT- and XML-Sitemap) for all Extensions (pibase, extbase), Metatags, Canonical-URL, Pagetitle manipulations, Crawler verification, Piwik and Google Analytics support and some more... multi-language- and multi-tree-support',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '1.6.1',
+	'version' => '3.1.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
 	'module' => '',
 	'state' => 'stable',
-	'uploadfolder' => 0,
+	'uploadfolder' => 1,
 	'createDirs' => '',
-	'modify_tables' => '',
+	'modify_tables' => 'pages,pages_language_overlay',
 	'clearcacheonload' => 0,
 	'lockType' => '',
 	'author' => 'Markus Blaschke',
@@ -33,8 +33,8 @@ $EM_CONF[$_EXTKEY] = array (
 	'CGLcompliance_note' => NULL,
 	'constraints' => array (
 		'depends' => array (
-			'typo3' => '',
-			'php' => '',
+			'typo3' => '4.4.0-0.0.0',
+			'php' => '5.2.0-0.0.0',
 		),
 	),
 );

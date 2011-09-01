@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id$
+ * @version		$Id: class.pagetitle.php 49810 2011-07-14 14:24:09Z mblaschke $
  */
 class user_tqseo_pagetitle {
 
@@ -51,8 +51,24 @@ class user_tqseo_pagetitle {
 		$skipPrefixSuffix	= false;
 		$applySitetitle		= false;
 
+		$stdWrapList		= array();
+
+		// get configuration
 		if( !empty($tsSetup['plugin.']['tq_seo.']) ) {
 			$tsSeoSetup = $tsSetup['plugin.']['tq_seo.'];
+		}
+		
+		// Call hook
+		tx_tqseo_tools::callHook('pagetitle-setup', $this, $tsSeoSetup);
+
+		// get stdwrap list
+		if( !empty($tsSeoSetup['pageTitle.']['stdWrap.']) ) {
+			$stdWrapList = $tsSeoSetup['pageTitle.']['stdWrap.'];
+		}
+
+		// Apply stdWrap before
+		if( !empty($stdWrapList['before.']) ) {
+			$rawTitel = $this->cObj->stdWrap($rawTitel, $stdWrapList['before.']);
 		}
 
 		#######################################################################
@@ -177,12 +193,20 @@ class user_tqseo_pagetitle {
 			}
 		}
 
+
+		// Apply stdWrap after
+		if( !empty($stdWrapList['after.']) ) {
+			$ret = $this->cObj->stdWrap($ret, $stdWrapList['after.']);
+		}
+		
+		// Call hook
+		tx_tqseo_tools::callHook('pagetitle-output', $this, $ret);
+
 		return $ret;
 	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.pagetitle.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.pagetitle.php']);
+	include_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tq_seo/lib/class.pagetitle.php']);
 }
-
 ?>
