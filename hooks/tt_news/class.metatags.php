@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.metatags.php 51617 2011-09-01 09:08:08Z mblaschke $
+ * @version		$Id: class.metatags.php 51615 2011-09-01 09:02:19Z mblaschke $
  */
 class tx_tqseo_hook_ttnews_metatags {
 

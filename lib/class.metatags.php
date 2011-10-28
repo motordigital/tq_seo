@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.metatags.php 50004 2011-07-21 14:07:39Z mblaschke $
+ * @version		$Id: class.metatags.php 52993 2011-10-14 08:59:51Z mblaschke $
  */
 class user_tqseo_metatags {
 
@@ -229,7 +229,7 @@ class user_tqseo_metatags {
 			}
 
 			// expire
-			if( !empty($tsSetupSeo['useLastUpdate']) && !empty($tsfePage['endtime']) ) {
+			if( !empty($tsSetupSeo['useExpire']) && !empty($tsfePage['endtime']) ) {
 				$ret['meta.expire'] = '<meta name="googlebot" content="unavailable_after: '.date('d-M-Y H:i:s T', $tsfePage['endtime']).'" /> ';
 			}
 

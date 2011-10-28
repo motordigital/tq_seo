@@ -1,0 +1,8 @@
+* Backend module for page-seo
+	-> pagetitle
+	-> pagetitle simulator
+	-> meta
+	-> settings
+	-> sitemap
+	-> realurl
+* Better Security/Permission checks in backend

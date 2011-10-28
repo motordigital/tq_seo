@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.base.php 51617 2011-09-01 09:08:08Z mblaschke $
+ * @version		$Id: class.base.php 52588 2011-09-30 11:13:19Z mblaschke $
  */
 abstract class tx_tqseo_sitemap_output_base {
 
@@ -47,9 +47,9 @@ abstract class tx_tqseo_sitemap_output_base {
 		// INIT
 		$this->tsSetup		= $TSFE->tmpl->setup['plugin.']['tq_seo.']['sitemap.'];
 
-		// check if sitemap is enabled
-		if( empty($this->tsSetup['enable']) ) {
-			$this->showError();
+		// check if sitemap is enabled in root
+		if( !tx_tqseo_tools::getRootSettingValue('is_sitemap', true) ) {
+			$this->showError('Sitemap is not available, please check your configuration [control-center]');
 		}
 
 		$ret .= $this->_build();

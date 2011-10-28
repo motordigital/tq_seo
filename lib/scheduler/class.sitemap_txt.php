@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.sitemap_txt.php 50614 2011-08-05 13:39:18Z mblaschke $
+ * @version		$Id: class.sitemap_txt.php 52588 2011-09-30 11:13:19Z mblaschke $
  */
 class tx_tqseo_scheduler_task_sitemap_txt extends tx_tqseo_scheduler_task_sitemap_base {
 
@@ -51,13 +51,22 @@ class tx_tqseo_scheduler_task_sitemap_txt extends tx_tqseo_scheduler_task_sitema
 	 * Build sitemap
 	 *
 	 * @param	integer	$rootPageId	Root page id
+	 * @param	integer	$languageId	Language id
 	 */
-	protected function _buildSitemap($rootPageId) {
+	protected function _buildSitemap($rootPageId, $languageId) {
+
+		if( $languageId !== null ) {
+			// Language lock enabled
+			$sitemapFileName	= 'sitemap-r%s-l%s.txt.gz';
+		} else {
+			$sitemapFileName	= 'sitemap-r%s.txt.gz';
+		}
 
 		$builder = new tx_tqseo_sitemap_builder_txt();
 		$content = $builder->sitemap();
 
-		$this->_writeToFile(PATH_site.'/'.$this->_sitemapDir.'/tree-'.(int)$rootPageId.'.txt.gz', $content);
+		$fileName = sprintf($sitemapFileName, $rootPageId, $languageId);
+		$this->_writeToFile(PATH_site.'/'.$this->_sitemapDir.'/'.$fileName, $content);
 
 		return true;
 	}

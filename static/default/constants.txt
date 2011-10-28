@@ -58,7 +58,7 @@ plugin.tq_seo {
   metaTags.useCanonical = 1
 
     # cat=plugin.tq_seo.metaTags/enable/23; type=boolean; label= Canonical Tag (Strict mode): Enable strict mode (all wrong GET-parameters will generate a canonical-tag to the self without GET-params).
-  metaTags.useCanonical.strict = 0
+  metaTags.useCanonical.strict = 1
 
     # cat=plugin.tq_seo.metaTags/enable/24; type=boolean; label= Publish Page Expire Time: Anounce Expire Tag (TYPO3's enddate in content elements).
   metaTags.useExpire = 1
@@ -111,17 +111,24 @@ plugin.tq_seo {
 
     # cat=plugin.tq_seo.services/page/06; type=string; label= Google Analytics: Code for google analytics (eg. UA-12345456-1)
   services.googleAnalytics =
-
-    # cat=plugin.tq_seo.services/page/07; type=boolean; label= Google Analytics Anonymize IP: Enable anonymize IP
+    # cat=plugin.tq_seo.services/page/07; type=string; label= Google Analytics Download & Click Domain Name: "auto", "none", single domain support: "example.com", subdomain support: ".example.com"
+  services.googleAnalytics.domainName =
+    # cat=plugin.tq_seo.services/page/08; type=boolean; label= Google Analytics Anonymize IP: Enable anonymize IP
   services.googleAnalytics.anonymizeIp = 0
-    # cat=plugin.tq_seo.services/page/08; type=boolean; label= Google Analytics Track Downloads: Track downloads (with javascript) (BETA!)
+    # cat=plugin.tq_seo.services/page/09; type=boolean; label= Google Analytics Track Downloads: Track downloads (with javascript) (BETA!)
   services.googleAnalytics.trackDownloads = 0
 
-    # cat=plugin.tq_seo.services/page/09; type=string; label= Piwik: Url to your piwik installation (eg. www.example.com/piwik/ - don't use http:// or https:// as prefix!)
+    # cat=plugin.tq_seo.services/page/10; type=string; label= Piwik URL: Url to your piwik installation (eg. www.example.com/piwik/ - don't use http:// or https:// as prefix!)
   services.piwik.url =
-
-    # cat=plugin.tq_seo.services/page/10; type=string; label= Piwik: Id of your website
+    # cat=plugin.tq_seo.services/page/11; type=string; label= Piwik Id: Id of your website
   services.piwik.id =
+    # cat=plugin.tq_seo.services/page/12; type=string; label= Piwik Download & Click Domain Name: single domain support: "example.com", subdomain support: ".example.com"
+  services.piwik.domainName =
+    # cat=plugin.tq_seo.services/page/13; type=string; label= Piwik Cookie Domain Name: single domain support: "example.com", subdomain support: ".example.com"
+  services.piwik.cookieDomainName =
+    # cat=plugin.tq_seo.services/page/14; type=boolean; label= Piwik DoNotTrack: Opt Out users with Mozilla's DoNotTrack browser setting
+  services.piwik.doNotTrack = 1
+
 
     # cat=plugin.tq_seo.pageTitle/enable/01; type=boolean; label= Apply Tmpl-Sitetitle to absolute <title>: This enables the addition of the template-sitetitle to the rendered page-title (in absolute <title>-mode)
   pageTitle.applySitetitleToPagetitle = 0
@@ -142,25 +149,6 @@ plugin.tq_seo {
   pageTitle.sitetitlePosition = 0
 
 
-
-    # cat=plugin.tq_seo.sitemap/page/01; type=boolean; label= Enable sitemap: Enable sitemap output and indexing (make sure this is set on the root-page to have effect)
-  sitemap.enable = 1
-
-    # cat=plugin.tq_seo.sitemap/page/01; type=int+; label= Page limit: Limit pages on sitemap pages (not on sitemap-index page)
-  sitemap.pageLimit = 10000
-
-    # cat=plugin.tq_seo.sitemap/page/02; type=boolean; label= Limit to current language: Limit the output of the sitemap to the current language (eg. for language domains, so the sitemap only contains pages for the current domain/language)
-  sitemap.limitToCurrentLanguage = 0
-
     # cat=plugin.tq_seo.sitemap/page/03; type=options[,Always=1,Hourly=2,Daily=3,Weekly=4,Monthly=5,Yearly=6,Never (archive)=7]; label= Default change frequency: Default change frequency for sitemap cache (will be cached!)
   sitemap.changeFrequency =
-
-    # cat=plugin.tq_seo.sitemap/page/04; type=string; label= Page priority: Value of the default page priority for xml-sitemaps => (priority-modificator) * ( 1/depth * multiplier) (Default 1, only float values!)
-  sitemap.pagePriority = 
-
-    # cat=plugin.tq_seo.sitemap/page/05; type=string; label= Page priority depth multiplier: Value of the page depth multipltiplier (Default 1, only float values!)
-  sitemap.pagePriorityDepthMultiplier = 
-
-    # cat=plugin.tq_seo.sitemap/page/06; type=string; label= Page priority depth modificator: Value of the page depth modificator (Default 1, only float values!)
-  sitemap.pagePriorityDepthModificator = 
 }

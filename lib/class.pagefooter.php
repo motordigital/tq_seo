@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.pagefooter.php 50537 2011-08-04 15:01:14Z mblaschke $
+ * @version		$Id: class.pagefooter.php 53014 2011-10-14 12:21:08Z mblaschke $
  */
 class user_tqseo_pagefooter {
 
@@ -56,7 +56,7 @@ class user_tqseo_pagefooter {
 		if( !empty($tsSetup['plugin.']['tq_seo.']['services.']) ) {
 			$tsServices = $tsSetup['plugin.']['tq_seo.']['services.'];
 		}
-		
+
 		// Call hook
 		tx_tqseo_tools::callHook('pagefooter-setup', $this, $tsServices);
 
@@ -76,30 +76,18 @@ class user_tqseo_pagefooter {
 			if( $gaEnabled && !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
 				$tmp = '';
 
-				$tmp .= '<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :"http://www.");
-document.write(unescape("%3Cscript src=\'" + gaJsHost +"google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("'.htmlspecialchars($tsServices['googleAnalytics']).'");';
-
-				if( !empty($gaConf['anonymizeIp']) ) {
-					$tmp .= '
-_gat._anonymizeIp();';
-				}
-
+				$customCode = '';
 				if( !empty($gaConf['customizationCode']) ) {
-					$tmp .= "\n".$this->cObj->stdWrap($gaConf['customizationCode'], $gaConf['customizationCode.']);
+					$customCode .= "\n".$this->cObj->cObjGetSingle($gaConf['customizationCode'], $gaConf['customizationCode.']);
 				}
 
-				$tmp .= '
-pageTracker._trackPageview();
-} catch(err) {}</script>';
+				$this->cObj->data['gaCode']					= $tsServices['googleAnalytics'];
+				$this->cObj->data['gaIsAnonymize']			= (int)!empty($gaConf['anonymizeIp']);
+				$this->cObj->data['gaDomainName']			= $gaConf['domainName'];
+				$this->cObj->data['gaCustomizationCode']	= $customCode;
 
-
-				$ret['ga'] = $tmp;
-
+				// Build code
+				$ret['ga'] = $this->cObj->cObjGetSingle($gaConf['template'], $gaConf['template.']);
 
 				if( !empty($gaConf['trackDownloads']) && !empty($gaConf['trackDownloadsScript']) ) {
 					$jsFile = t3lib_div::getFileAbsFileName($gaConf['trackDownloadsScript']);
@@ -108,7 +96,6 @@ pageTracker._trackPageview();
 				}
 			} elseif($gaEnabled && $beLoggedIn) {
 				// Backend login detected, disable cache because this page is viewed by BE-users
-				$TSFE->set_no_cache('tq_seo: Backend login disables google analytics');
 				$ret['ga.disabled'] = '<!-- Google Analytics disabled - Backend-Login detected -->';
 			}
 		}
@@ -126,35 +113,33 @@ pageTracker._trackPageview();
 				$piwikEnabled = false;
 			}
 
-			if( $piwikEnabled && !(empty($gaConf['showIfBeLogin']) && $beLoggedIn) ) {
+			if( $piwikEnabled && !(empty($piwikConf['showIfBeLogin']) && $beLoggedIn) ) {
 				$tmp = '';
 
-				$tmp .= '
-<script type="text/javascript">
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://'.htmlspecialchars($piwikConf['url']).'/" : "http://'.htmlspecialchars($piwikConf['url']).'/");
-document.write(unescape("%3Cscript src=\'" + pkBaseURL + "piwik.js\' type=\'text/javascript\'%3E%3C/script%3E"));
-</script><script type="text/javascript">
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", '.htmlspecialchars($piwikConf['id']).');
-piwikTracker.trackPageView();';
-
+				$customCode = '';
 				if( !empty($piwikConf['customizationCode']) ) {
-					$tmp .= "\n".$this->cObj->stdWrap($piwikConf['customizationCode'], $piwikConf['customizationCode.']);
+					$customCode .= "\n".$this->cObj->cObjGetSingle($piwikConf['customizationCode'], $piwikConf['customizationCode.']);
 				}
 
-				$tmp .= '
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="http://'.htmlspecialchars($piwikConf['url']).'/piwik.php?idsite='.htmlspecialchars($piwikConf['id']).'" style="border:0" alt="" /></p></noscript>';
+				// remove last slash
+				$piwikConf['url'] = rtrim($piwikConf['url'], '/');
 
-				$ret['piwik'] = $tmp;
+				$this->cObj->data['piwikUrl']					= $piwikConf['url'];
+				$this->cObj->data['piwikId']					= $piwikConf['id'];
+				$this->cObj->data['piwikDomainName']			= $piwikConf['domainName'];
+				$this->cObj->data['piwikCookieDomainName']		= $piwikConf['cookieDomainName'];
+				$this->cObj->data['piwikDoNotTrack']			= $piwikConf['doNotTrack'];
+				$this->cObj->data['piwikCustomizationCode']		= $customCode;
+
+				// Build code
+				$ret['piwik'] = $this->cObj->cObjGetSingle($piwikConf['template'], $piwikConf['template.']);
+
 			} elseif($piwikEnabled && $beLoggedIn) {
 				// Backend login detected, disable cache because this page is viewed by BE-users
-				$TSFE->set_no_cache('tq_seo: Backend login disables piwik');
 				$ret['piwik.disabled'] = '<!-- Piwik disabled - Backend-Login detected -->';
 			}
 		}
-		
+
 		// Call hook
 		tx_tqseo_tools::callHook('pagefooter-output', $this, $ret);
 
