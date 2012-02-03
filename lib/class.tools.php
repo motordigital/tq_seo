@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.tools.php 52588 2011-09-30 11:13:19Z mblaschke $
+ * @version		$Id: class.tools.php 55804 2011-12-22 12:47:28Z mblaschke $
  */
 class tx_tqseo_tools {
 
@@ -93,6 +93,17 @@ class tx_tqseo_tools {
 		}
 
 		return $ret;
+	}
+
+	/**
+	 * Get current pid
+	 *
+	 * @return	integer
+	 */
+	public static function getCurrentPid() {
+		global $TSFE;
+
+		return $TSFE->id;
 	}
 
 	/**

@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.xml.php 52588 2011-09-30 11:13:19Z mblaschke $
+ * @version		$Id: class.xml.php 55804 2011-12-22 12:47:28Z mblaschke $
  */
 class tx_tqseo_sitemap_builder_xml extends tx_tqseo_sitemap_builder_base {
 
@@ -55,7 +55,7 @@ class tx_tqseo_sitemap_builder_xml extends tx_tqseo_sitemap_builder_base {
 		$pageCount		= ceil($pageItems/$pageLimit);
 
 		$linkConf = array(
-			'parameter'			=> tx_tqseo_tools::getRootPid(),
+			'parameter'			=> tx_tqseo_tools::getCurrentPid(),
 			'additionalParams'	=> '',
 			'useCacheHash'		=> 1,
 		);
