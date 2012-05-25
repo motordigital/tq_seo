@@ -43,6 +43,7 @@ plugin.tq_seo {
 		sitetitleGlueSpaceBefore = {$plugin.tq_seo.pageTitle.sitetitleGlueSpaceBefore}
 		sitetitleGlueSpaceAfter = {$plugin.tq_seo.pageTitle.sitetitleGlueSpaceAfter}
 		sitetitlePosition = {$plugin.tq_seo.pageTitle.sitetitlePosition}
+		sitetitle = {$plugin.tq_seo.pageTitle.sitetitle}
 
 
 		# list of stdWraps for advanced page title manipulations
@@ -51,6 +52,11 @@ plugin.tq_seo {
 			# stdWrap for raw page title (before processing)
 			before =
 			before {
+			}
+
+			# stdWrap for sitetitle (the title from the template, not from the page)
+			sitetitle =
+			sitetitle {
 			}
 
 			# stdWrap for processed page title (after processing)
@@ -308,6 +314,15 @@ plugin.tq_seo {
 		}
 	}
 
+	# Social services (Google+,...)
+	social =
+	social {
+		googlePlus =
+		googlePlus {
+			profilePageId = {$plugin.tq_seo.social.googleplus.profilePageId}
+		}
+	}
+
 	# Sitemap indexer and generator
 	sitemap =
 	sitemap {
@@ -356,7 +371,7 @@ Sitemap: %sitemap%
 			sitemap {
 				typolink {
 					parameter.data = leveluid:0
-					additionalParams = &type=841132
+					parameter.wrap = |,841132
 					returnLast = url
 				}
 			}

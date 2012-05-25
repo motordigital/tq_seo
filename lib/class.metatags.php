@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2012 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.metatags.php 52993 2011-10-14 08:59:51Z mblaschke $
+ * @version		$Id: class.metatags.php 62700 2012-05-22 15:53:22Z mblaschke $
  */
 class user_tqseo_metatags {
 
@@ -415,6 +415,17 @@ class user_tqseo_metatags {
 			// TODO
 		}
 
+		#####################################
+		# SOCIAL
+		#####################################
+		if( !empty($tsSetup['plugin.']['tq_seo.']['social.']) ) {
+			$tsSetupSeo = $tsSetup['plugin.']['tq_seo.']['social.'];
+
+			if( !empty($tsSetupSeo['googlePlus.']['profilePageId']) ) {
+				$ret['social.googleplus.direct-connect'] = '<link href="https://plus.google.com/'.htmlspecialchars($tsSetupSeo['googlePlus.']['profilePageId']).'" rel="publisher" />';
+			}
+		}
+
 		$separator = "\n";
 
 		$this->_processMetaTags($ret);
@@ -440,7 +451,7 @@ class user_tqseo_metatags {
 
 		$ret = $TSFE->cObj->typoLink_URL($conf);
 		// maybe baseUrlWrap is better? but breaks with realurl currently?
-		$ret = t3lib_div::locationHeaderUrl($ret);
+		$ret = tx_tqseo_tools::fullUrl($ret);
 
 		return $ret;
 	}

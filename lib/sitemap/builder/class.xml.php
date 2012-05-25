@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2012 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.xml.php 55804 2011-12-22 12:47:28Z mblaschke $
+ * @version		$Id: class.xml.php 62829 2012-05-25 08:18:37Z mblaschke $
  */
 class tx_tqseo_sitemap_builder_xml extends tx_tqseo_sitemap_builder_base {
 
@@ -55,7 +55,7 @@ class tx_tqseo_sitemap_builder_xml extends tx_tqseo_sitemap_builder_base {
 		$pageCount		= ceil($pageItems/$pageLimit);
 
 		$linkConf = array(
-			'parameter'			=> tx_tqseo_tools::getCurrentPid(),
+			'parameter'			=> tx_tqseo_tools::getCurrentPid().','.$TSFE->type,
 			'additionalParams'	=> '',
 			'useCacheHash'		=> 1,
 		);
@@ -65,8 +65,8 @@ class tx_tqseo_sitemap_builder_xml extends tx_tqseo_sitemap_builder_base {
 				$link = str_replace('###PAGE###', $i, $this->indexPathTemplate);
 				$sitemaps[] = $link;
 			} else {
-				$linkConf['additionalParams'] = '&type='.$TSFE->type.'&page='.($i+1);
-				$sitemaps[] = t3lib_div::locationHeaderUrl($TSFE->cObj->typoLink_URL($linkConf));
+				$linkConf['additionalParams'] = '&page='.($i+1);
+				$sitemaps[] = tx_tqseo_tools::fullUrl( $TSFE->cObj->typoLink_URL($linkConf) );
 			}
 		}
 
@@ -192,7 +192,7 @@ class tx_tqseo_sitemap_builder_xml extends tx_tqseo_sitemap_builder_base {
 			#####################################
 
 			// page Url
-			$pageUrl = t3lib_div::locationHeaderUrl( $sitemapPage['page_url'] );
+			$pageUrl = tx_tqseo_tools::fullUrl( $sitemapPage['page_url'] );
 
 			// Page modification date
 			$pageModifictionDate = date('c', $sitemapPage['tstamp']);

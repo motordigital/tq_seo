@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2012 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.pagetitle.php 55811 2011-12-22 14:30:51Z mblaschke $
+ * @version		$Id: class.pagetitle.php 62700 2012-05-22 15:53:22Z mblaschke $
  */
 class user_tqseo_pagetitle {
 
@@ -165,9 +165,21 @@ class user_tqseo_pagetitle {
 		# APPLY SITETITLE (from setup)
 		#######################################################################
 		if($applySitetitle) {
-			$pageTitleGlue = ':';
-			$glueSpacerBefore = '';
-			$glueSpacerAfter = '';
+			$pageTitleGlue		= ':';
+			$glueSpacerBefore	= '';
+			$glueSpacerAfter	= '';
+			$sitetitle = $tsSetup['sitetitle'];
+
+			// Overwrite sitetitle with the one from ts-setup (if available)
+			if( !empty($tsSeoSetup['pageTitle.']['sitetitle']) ) {
+				$sitetitle = $tsSeoSetup['pageTitle.']['sitetitle'];
+			}
+
+			// Apply stdWrap after
+			if( !empty($stdWrapList['sitetitle.']) ) {
+				$sitetitle = $this->cObj->stdWrap($sitetitle, $stdWrapList['sitetitle.']);
+			}
+
 
 			if( isset($tsSeoSetup['pageTitle.']['sitetitleGlue']) ) {
 				$pageTitleGlue = $tsSeoSetup['pageTitle.']['sitetitleGlue'];
@@ -191,10 +203,10 @@ class user_tqseo_pagetitle {
 			// add overall pagetitel from template/ts-setup
 			if($sitetitlePosition) {
 				// suffix
-				$ret .= $glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$tsSetup['sitetitle'];
+				$ret .= $glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$sitetitle;
 			} else {
 				// prefix (default)
-				$ret = $tsSetup['sitetitle'].$glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$ret;
+				$ret = $sitetitle.$glueSpacerBefore.$pageTitleGlue.$glueSpacerAfter.$ret;
 			}
 		}
 

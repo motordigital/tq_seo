@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2012 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.tools.php 55804 2011-12-22 12:47:28Z mblaschke $
+ * @version		$Id: class.tools.php 62829 2012-05-25 08:18:37Z mblaschke $
  */
 class tx_tqseo_tools {
 
@@ -267,6 +267,32 @@ class tx_tqseo_tools {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Full url
+	 *
+	 * Make sure the url is absolute (http://....)
+	 *
+	 * @param	string	$url	URL
+	 * @return	string
+	 */
+	public static function fullUrl($url) {
+		global $TSFE;
+
+		if( !preg_match('/^https?:\/\//i', $url ) ) {
+			$url = t3lib_div::locationHeaderUrl($url);
+		}
+
+		// Fix url stuff
+		$url = str_replace('?&', '?', $url);
+
+		// Fallback
+	//	if( !empty($TSFE) && !preg_match('/^https?:\/\//i', $url ) ) {
+	//		$url = $TSFE->baseUrlWrap($url);
+	//	}
+
+		return $url;
 	}
 
 	###########################################################################

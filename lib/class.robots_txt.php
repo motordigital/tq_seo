@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
+*  (c) 2012 Markus Blaschke (TEQneers GmbH & Co. KG) <blaschke@teqneers.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,7 +28,7 @@
  * @author		Blaschke, Markus <blaschke@teqneers.de>
  * @package 	tq_seo
  * @subpackage	lib
- * @version		$Id: class.robots_txt.php 52588 2011-09-30 11:13:19Z mblaschke $
+ * @version		$Id: class.robots_txt.php 62700 2012-05-22 15:53:22Z mblaschke $
  */
 class tx_tqseo_robots_txt {
 
@@ -146,6 +146,9 @@ class tx_tqseo_robots_txt {
 
 				$markerList['%sitemap%'] = $cObj->typolink_URL($conf);
 			}
+
+			// Fix sitemap-marker url (add prefix if needed)
+			$markerList['%sitemap%'] = tx_tqseo_tools::fullUrl($markerList['%sitemap%']);
 
 			// Call hook
 			tx_tqseo_tools::callHook('robotstxt-marker', $this, $markerList);
