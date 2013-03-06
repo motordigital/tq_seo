@@ -69,7 +69,8 @@ TQSeo.sitemap.grid = {
 				criteriaFulltext		: Ext.encode( TQSeo.sitemap.conf.criteriaFulltext ),
 				criteriaPageUid			: Ext.encode( TQSeo.sitemap.conf.criteriaPageUid ),
 				criteriaPageLanguage	: Ext.encode( TQSeo.sitemap.conf.criteriaPageLanguage ),
-				criteriaPageDepth		: Ext.encode( TQSeo.sitemap.conf.criteriaPageDepth )
+				criteriaPageDepth		: Ext.encode( TQSeo.sitemap.conf.criteriaPageDepth ),
+				sessionToken			: Ext.encode( TQSeo.sitemap.conf.sessionToken )
 			},
 			listeners: {
 				beforeload: function() {
@@ -135,8 +136,9 @@ TQSeo.sitemap.grid = {
 										}
 									},
 									params: {
-										'uidList': Ext.encode(uidList),
-										'pid': TQSeo.sitemap.conf.pid
+										'uidList'		: Ext.encode(uidList),
+										'pid'			: TQSeo.sitemap.conf.pid,
+										sessionToken	: Ext.encode( TQSeo.sitemap.conf.sessionToken )
 									}
 								});
 

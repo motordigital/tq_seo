@@ -39,7 +39,7 @@ $BE_USER->modAccess($MCONF,1);    // This checks permissions and exits if the us
  * @package		TYPO3
  * @subpackage	tx_seo
  */
-class  tx_tqseo_module_sitemap extends tx_tqseo_module_standalone {
+class tx_tqseo_module_sitemap extends tx_tqseo_module_standalone {
 	###########################################################################
 	# Attributes
 	###########################################################################
@@ -280,8 +280,9 @@ class  tx_tqseo_module_sitemap extends tx_tqseo_module_standalone {
 			'Ext.namespace("TQSeo.sitemap");
 
 			TQSeo.sitemap.conf = {
-				ajaxController			: '. json_encode($this->doc->backPath. 'ajax.php?ajaxID=tx_tqseo_backend_ajax::sitemap').',
-				pid						: '. (int)$rootPid .',
+				sessionToken			: '.json_encode($this->_sessionToken('tx_tqseo_backend_ajax_sitemap')).',
+				ajaxController			: '.json_encode($this->doc->backPath. 'ajax.php?ajaxID=tx_tqseo_backend_ajax::sitemap').',
+				pid						: '.(int)$rootPid .',
 				renderTo				: "tx-tqseo-sitemap-grid",
 
 				pagingSize				: 50,
