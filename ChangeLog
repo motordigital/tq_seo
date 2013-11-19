@@ -1,11 +1,28 @@
-2011-05-25 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+2013-10-04 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* [!!!] Requires TYPO3 6.0
+	* Refactored tq_seo for TYPO3 6.0 (namespaces and better xclass support)
+	* Added update script
+
+2012-12-05 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed TYPO3 6.0 issue
+
+2012-09-13 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Fixed typo in manual
+
+2012-06-07 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+	* Added geo positioning into pages meta tags
+	* Added link to sitemal.xml index page into sitemap backend module
+	* Added tq_seo class for external metatag manipulations for 3rd party extensions
+	* Added better caching of sql queries (sitemap link indexer)
+
+2012-05-25 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Release of 5.0.0
 	* Added SEO backend page-module
 	* Fixed severy bugs/issues
 	* Added several improvements
 	* Fixed some Simulate Static URLs issues
 
-2011-02-03 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
+2012-02-03 Markus Blaschke, TEQneers GmbH & Co. KG  <blaschke@teqneers.de>
 	* Release of 4.0.1
 	* Fixed typo in ext_emconf
 

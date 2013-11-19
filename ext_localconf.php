@@ -1,79 +1,73 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
- 	die ('Access denied.');
+if (!defined('TYPO3_MODE')) {
+    die ('Access denied.');
 }
 
 $confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tq_seo']);
 
-#################################################
+// ##############################################
 ## BACKEND
-#################################################
+// ##############################################
 if (TYPO3_MODE == 'BE') {
-	// AJAX
-	$TYPO3_CONF_VARS['BE']['AJAX']['tx_tqseo_backend_ajax::sitemap']	= 'EXT:tq_seo/lib/backend/ajax/class.sitemap.php:tx_tqseo_backend_ajax_sitemap->main';
-	$TYPO3_CONF_VARS['BE']['AJAX']['tx_tqseo_backend_ajax::page']		= 'EXT:tq_seo/lib/backend/ajax/class.page.php:tx_tqseo_backend_ajax_page->main';
+    // AJAX
+    $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['tx_tqseo_backend_ajax::sitemap'] = 'TQ\\TqSeo\\Backend\\Ajax\SitemapAjax->main';
+    $GLOBALS['TYPO3_CONF_VARS']['BE']['AJAX']['tx_tqseo_backend_ajax::page']    = 'TQ\\TqSeo\\Backend\\Ajax\PageAjax->main';
 
-	// Field validations
-	$TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['tx_tqseo_backend_validation_float'] = 'EXT:tq_seo/lib/backend/validation/class.float.php';
+    // Field validations
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['tx_tqseo_backend_validation_float'] = 'EXT:tq_seo/Classes/Backend/Validator/ValidatorImport.php';
 }
 
-#################################################
-## SEO
-#################################################
+// ##############################################
+// SEO
+// ##############################################
 
-$TYPO3_CONF_VARS['FE']['pageOverlayFields'] .= ',tx_tqseo_pagetitle,tx_tqseo_pagetitle_rel,tx_tqseo_pagetitle_prefix,tx_tqseo_pagetitle_suffix,tx_tqseo_canonicalurl';
-$TYPO3_CONF_VARS['FE']['addRootLineFields'] .= ',tx_tqseo_pagetitle_prefix,tx_tqseo_pagetitle_suffix,tx_tqseo_inheritance';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] .= ',tx_tqseo_pagetitle,tx_tqseo_pagetitle_rel,tx_tqseo_pagetitle_prefix,tx_tqseo_pagetitle_suffix,tx_tqseo_canonicalurl';
+$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ',tx_tqseo_pagetitle_prefix,tx_tqseo_pagetitle_suffix,tx_tqseo_inheritance';
 
 //$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typoLink_PostProc'][] = 'EXT:tq_seo/lib/class.linkparser.php:user_tqseo_linkparser->main';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typoLink_PostProc'][] = 'EXT:tq_seo/lib/sitemap/class.sitemap_indexer.php:user_tqseo_sitemap_indexer->hook_linkParse';
-
-// Caching framework
-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = 'tx_tqseo_cache->clearAll';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typoLink_PostProc'][] = 'TQ\\TqSeo\\Hook\\SitemapIndexHook->hook_linkParse';
 
 // HTTP Header extension
-require_once t3lib_extMgm::extPath('tq_seo').'/lib/class.http.php';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['isOutputting'][] = 'user_tqseo_http->main';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['isOutputting']['tq_seo'] = 'TQ\\TqSeo\\Hook\\HttpHook->main';
 
 
-#################################################
-## SITEMAP
-#################################################
+// ##############################################
+// SITEMAP
+// ##############################################
 // Frontend indexed
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['pageIndexing'][] = 'EXT:tq_seo/lib/sitemap/class.sitemap_indexer.php:user_tqseo_sitemap_indexer';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['pageIndexing'][] = 'TQ\\TqSeo\\Hook\\SitemapIndexHook';
 
-// Sitemap control
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['additionalBackendItems']['cacheActions']['clearSeoSitemap']	= 'EXT:tq_seo/hooks/sitemap/class.cache_controller_hook.php:&tx_tqseo_sitemap_cache_controller_hook';
-
-// Sitemal controll ajax
-$TYPO3_CONF_VARS['BE']['AJAX']['tx_tqseo_sitemap::clearSeoSitemap'] = 'EXT:tq_seo/hooks/sitemap/class.cache_controller.php:tx_tqseo_sitemap_cache_controller->clearSeoSitemap';
-
-#################################################
-## TT_NEWS
-#################################################
-if( !empty($confArr['enableIntegrationTTNews']) ) {
-	// Metatag fetch hook
-	$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_news']['extraItemMarkerHook']['tqseo'] = 'EXT:tq_seo/hooks/tt_news/class.metatags.php:&tx_tqseo_hook_ttnews_metatags';
+// ##############################################
+// TT_NEWS
+// ##############################################
+if (!empty($confArr['enableIntegrationTTNews'])) {
+    // Metatag fetch hook
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_news']['extraItemMarkerHook']['tqseo'] = 'TQ\\TqSeo\\Hook\\Extension\\TtnewsExtension';
 }
 
-#################################################
-## SCHEDULER
-#################################################
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_tqseo_scheduler_task_cleanup'] = array(
-    'extension'        => $_EXTKEY,
-    'title'            => 'TQ SEO Cleanup',
-    'description'      => 'Cleanup old sitemap entries'
+// ##############################################
+// SCHEDULER
+// ##############################################
+
+// Cleanup task
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['TQ\\TqSeo\\Scheduler\\Task\\GarbageCollectionTask'] = array(
+    'extension'   => $_EXTKEY,
+    'title'       => 'Sitemap garbage collection',
+    'description' => 'Cleanup old sitemap entries'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_tqseo_scheduler_task_sitemap_xml'] = array(
-    'extension'        => $_EXTKEY,
-    'title'            => 'TQ SEO sitemap.xml builder',
-    'description'      => 'Build sitemap xml as static file (in uploads/tx_tqseo/sitemap-xml/)'
+// Sitemap XML task
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['TQ\\TqSeo\\Scheduler\\Task\\SitemapXmlTask'] = array(
+    'extension'   => $_EXTKEY,
+    'title'       => 'Sitemap.xml builder',
+    'description' => 'Build sitemap xml as static file (in uploads/tx_tqseo/sitemap-xml/)'
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_tqseo_scheduler_task_sitemap_txt'] = array(
-    'extension'        => $_EXTKEY,
-    'title'            => 'TQ SEO sitemap.txt builder',
-    'description'      => 'Build sitemap txt as static file (in uploads/tx_tqseo/sitemap-txt/)'
+// Sitemap TXT task
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['TQ\\TqSeo\\Scheduler\\Task\\SitemapTxtTask'] = array(
+    'extension'   => $_EXTKEY,
+    'title'       => 'Sitemap.txt builder',
+    'description' => 'Build sitemap txt as static file (in uploads/tx_tqseo/sitemap-txt/)'
 );
 
 ?>

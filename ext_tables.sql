@@ -10,7 +10,11 @@ CREATE TABLE pages (
 	tx_tqseo_inheritance int(11) DEFAULT '0' NOT NULL,
 	tx_tqseo_canonicalurl varchar(255) DEFAULT '' NOT NULL,
 	tx_tqseo_priority int(11) DEFAULT '0' NOT NULL,
-	tx_tqseo_change_frequency int(4) DEFAULT '0' NOT NULL
+	tx_tqseo_change_frequency int(4) DEFAULT '0' NOT NULL,
+	tx_tqseo_geo_lat varchar(255) DEFAULT '' NOT NULL,
+	tx_tqseo_geo_long varchar(255) DEFAULT '' NOT NULL,
+	tx_tqseo_geo_place varchar(255) DEFAULT '' NOT NULL,
+	tx_tqseo_geo_region varchar(255) DEFAULT '' NOT NULL
 );
 
 #
@@ -43,21 +47,25 @@ CREATE TABLE tx_tqseo_cache (
 # Table structure for table 'tx_tqseo_sitemap'
 #
 CREATE TABLE tx_tqseo_sitemap (
-  uid int(11) NOT NULL auto_increment,
-  tstamp int(11) DEFAULT '0' NOT NULL,
-  crdate int(11) DEFAULT '0' NOT NULL,
-  page_rootpid int(11) DEFAULT '0' NOT NULL,
-  page_uid int(11) DEFAULT '0' NOT NULL,
-  page_language int(11) DEFAULT '0' NOT NULL,
-  page_url varchar(500) DEFAULT '' NOT NULL,
-  page_hash varchar(32) DEFAULT '' NOT NULL,
-  page_depth int(4) DEFAULT '0' NOT NULL,
-  page_change_frequency int(4) DEFAULT '0' NOT NULL,
-  PRIMARY KEY (uid),
+	uid int(11) NOT NULL auto_increment,
+	tstamp int(11) DEFAULT '0' NOT NULL,
+	crdate int(11) DEFAULT '0' NOT NULL,
+	page_rootpid int(11) DEFAULT '0' NOT NULL,
+	page_uid int(11) DEFAULT '0' NOT NULL,
+	page_language int(11) DEFAULT '0' NOT NULL,
+	page_url varchar(500) DEFAULT '' NOT NULL,
+	page_hash varchar(32) DEFAULT '' NOT NULL,
+	page_depth int(4) DEFAULT '0' NOT NULL,
+	page_change_frequency int(4) DEFAULT '0' NOT NULL,
 
-  UNIQUE page_identification (page_uid,page_language,page_hash),
-  KEY language_path (page_rootpid,page_language,page_depth),
-  KEY page_depth (page_depth)
+	is_blacklisted int(1) DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+
+	UNIQUE page_identification (page_uid,page_language,page_hash),
+	KEY language_path (page_rootpid,page_language,page_depth),
+	KEY page_depth (page_depth),
+	KEY blacklisted (is_blacklisted)
 ) ENGINE=InnoDB;
 
 
