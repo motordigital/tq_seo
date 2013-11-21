@@ -30,7 +30,7 @@ namespace TQ\TqSeo\Sitemap\Generator;
  * @author      Blaschke, Markus <blaschke@teqneers.de>
  * @package     tq_seo
  * @subpackage  lib
- * @version     $Id: AbstractGenerator.php 81080 2013-10-28 09:54:33Z mblaschke $
+ * @version     $Id: AbstractGenerator.php 81677 2013-11-21 12:32:33Z mblaschke $
  */
 abstract class AbstractGenerator {
     // ########################################################################
@@ -144,7 +144,7 @@ abstract class AbstractGenerator {
     }
 
     // ########################################################################
-    # Abstract methods
+    // Abstract methods
     // ########################################################################
 
     /**

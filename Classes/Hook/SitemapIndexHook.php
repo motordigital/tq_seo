@@ -30,7 +30,7 @@ namespace TQ\TqSeo\Hook;
  * @author      Blaschke, Markus <blaschke@teqneers.de>
  * @package     tq_seo
  * @subpackage  lib
- * @version     $Id: SitemapIndexHook.php 81080 2013-10-28 09:54:33Z mblaschke $
+ * @version     $Id: SitemapIndexHook.php 81677 2013-11-21 12:32:33Z mblaschke $
  */
 class SitemapIndexHook {
 
@@ -128,9 +128,10 @@ class SitemapIndexHook {
     }
 
     /**
-     * Insert page into sitemap
+     * Process/Clear link url
      *
-     * @param    array $pageData    Page informations
+     * @param   string  $linkUrl    Link url
+     * @return  string
      */
     protected static function _processLinkUrl($linkUrl) {
         static $absRefPrefix = NULL;
@@ -156,7 +157,7 @@ class SitemapIndexHook {
     }
 
     // ########################################################################
-    # HOOKS
+    // HOOKS
     // ########################################################################
 
     /**

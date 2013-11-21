@@ -30,7 +30,7 @@ namespace TQ\TqSeo\Utility;
  * @author      Blaschke, Markus <blaschke@teqneers.de>
  * @package     tq_seo
  * @subpackage  Utility
- * @version     $Id: GeneralUtility.php 81080 2013-10-28 09:54:33Z mblaschke $
+ * @version     $Id: GeneralUtility.php 81677 2013-11-21 12:32:33Z mblaschke $
  */
 class GeneralUtility {
 
@@ -47,7 +47,7 @@ class GeneralUtility {
 
 
     // ########################################################################
-    # Public methods
+    // Public methods
     // ########################################################################
 
     /**
@@ -297,7 +297,7 @@ class GeneralUtility {
     }
 
     // ########################################################################
-    # Protected methods
+    // Protected methods
     // ########################################################################
 
     /**
