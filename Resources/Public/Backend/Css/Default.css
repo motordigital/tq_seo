@@ -1,0 +1,87 @@
+.tqseo-search-highlight {
+	background-color: yellow;
+}
+
+.tqseo-cell-highlight {
+	background-color: #FCFF91;
+}
+
+.tqseo-warning {
+    font-style: italic;
+}
+
+.tqseo-url-https {
+	color: green;
+}
+
+.tqseo-boolean {
+	text-align: center;
+}
+
+.tqseo-default {
+	color: #808080;
+	font-style: italic;
+}
+
+.tqseo-info-from-base {
+}
+
+.tqseo-info-from-overlay {
+    color: #808080;
+    font-style: italic;
+}
+
+.tqseo-info-only-in-base {
+    color: red;
+}
+
+.tqseo-grid-editable .x-grid3-body .x-grid3-cell {
+	position: relative;
+	cursor: pointer;
+}
+
+.tqseo-grid-editable .x-grid3-body .x-grid3-cell:hover {
+	background-color: #B3B3B3;
+	color: white;
+}
+
+.tqseo-grid-editable .x-grid3-body .x-grid3-cell:hover.tqseo-cell-highlight {
+	color: black;
+}
+
+.tqseo-grid-editable .x-grid3-body .x-grid3-cell .t3-icon {
+	visibility: hidden;
+	position: absolute; right: -1px; top: 0px; bottom: 0px;
+	background-color: #B3B3B3;
+}
+
+.tqseo-grid-editable .x-grid3-body .x-grid3-cell:hover .t3-icon {
+	visibility: visible;
+}
+
+.x-grid3-body .x-grid3-cell  .tqseo-toolbar {
+	text-align: center;
+}
+
+.x-grid3-body .x-grid3-cell .tqseo-toolbar .t3-icon {
+	visibility: visible !important;
+	position: static !important;
+	background-color: transparent !important;
+}
+
+
+td.center,
+th.center {
+	text-align: center;
+}
+
+
+.icon-grid { background-image:url('../Icons/Delete.gif') !important; }
+.delete { background-image: url('../Icons/Delete.gif') !important; }
+
+.deletedPath { color: #ff0000; font-weight: bold; }
+
+
+.x-window .x-window-body {
+    padding: 10px 15px;
+}

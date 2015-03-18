@@ -1,0 +1,5 @@
+* Backend module for page-seo
+	-> settings
+* Piwik auto keywords
+* Sitemap url type (page, news etc)
+* Finishing accessor class
